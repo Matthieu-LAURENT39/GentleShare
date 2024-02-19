@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import contextlib
 import glob
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Callable
 
 from flask import Flask
 from flask_login import LoginManager
@@ -29,11 +29,13 @@ def load_user(user_id: str) -> Optional["User"]:
     return User.query.filter_by(id=user_id).first()
 
 
-def create_app(config: object = Config) -> Flask:
+def create_app(config: object | Callable = Config) -> Flask:
     """App factory for the Flask app
 
     Args:
         config (object, optional): The configuration to use. Defaults to Config.
+            If the config is a callable, it will be called to get the config object.
+            Classes are callables, so their init method will be called.
 
     Returns:
         Flask: The flask app
@@ -44,6 +46,10 @@ def create_app(config: object = Config) -> Flask:
         template_folder="templates",
         static_url_path="/static",
     )
+
+    # Calls init,
+    if callable(config):
+        config = config()
 
     # We load the flask config
     app.config.from_object(config)
