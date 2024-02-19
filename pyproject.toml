@@ -35,4 +35,5 @@ doc = ["pdoc>=14.4.0", "docstr-coverage>=2.3.0"]
 distribution = false
 
 [tool.pdm.scripts]
-serve = "waitress-serve --port=5000 --call gentleshare:create_app"
+serve = "waitress-serve --port=8080 --call gentleshare:create_app"
+debug = "flask --app gentleshare:create_app run --host=localhost --port=5000 --reload --debugger"
