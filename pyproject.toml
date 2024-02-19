@@ -1,6 +1,6 @@
 [project]
 name = "GentleShare"
-description = "Default template for PDM package"
+description = ""
 authors = [
     { name = "Matthieu LAURENT" },
     { name = "Leonardo HERON" },
