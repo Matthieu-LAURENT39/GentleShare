@@ -3,6 +3,8 @@ from __future__ import annotations
 import contextlib
 import glob
 from typing import TYPE_CHECKING, Optional, Callable
+from loguru import logger
+from pprint import pprint
 
 from flask import Flask
 from flask_login import LoginManager
@@ -68,6 +70,10 @@ def create_app(config: object | Callable = Config) -> Flask:
 
     app.register_blueprint(main)
 
-    # print(app.url_map)
+    if app.debug:
+        print(" URL Map ".center(50, "="))
+        for rule in app.url_map.iter_rules():
+            print(f"{rule} ({rule.endpoint})")
+        print("=" * 50)
 
     return app
