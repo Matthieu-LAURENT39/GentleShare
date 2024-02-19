@@ -13,6 +13,7 @@ dependencies = [
     "Flask-SQLAlchemy~=3.1",
     "Flask-Login~=0.6",
     "WTForms~=3.1",
+    "waitress>=3.0.0",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
@@ -32,3 +33,6 @@ doc = ["pdoc>=14.4.0", "docstr-coverage>=2.3.0"]
 
 [tool.pdm]
 distribution = false
+
+[tool.pdm.scripts]
+serve = "waitress-serve --port=5000 --call gentleshare:create_app"

@@ -1,0 +1,11 @@
+{% extends 'base.jinja' %}
+
+{% block title %}
+{{ super() }} - Accueil
+{% endblock %}
+
+{% block content %}
+<main class="container pt-5 pb-3">
+  {{lipsum()}}
+</main>
+{% endblock content %}
