@@ -2,10 +2,10 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default", "dev", "lint", "doc"]
+groups = ["default", "lint", "doc"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:08953f7a51714cd6f0e32450f34b9b622a296ff23c5f111049b063a8ae8d8a0f"
+content_hash = "sha256:be87021ca4ee1534b3337c2e9a529cb2cfe330bbb6e67838347949c4b55bd45b"
 
 [[package]]
 name = "black"
