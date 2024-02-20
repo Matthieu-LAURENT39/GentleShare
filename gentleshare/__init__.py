@@ -1,18 +1,14 @@
 from __future__ import annotations
 
-import contextlib
-import glob
-from typing import TYPE_CHECKING, Optional, Callable
-from loguru import logger
 from pprint import pprint
+from typing import TYPE_CHECKING, Callable, Optional
 
 from flask import Flask
 from flask_login import LoginManager
+from loguru import logger
 
+from .database import User, db
 from .flask_config import Config
-
-from .database import db, User
-
 
 login_manager = LoginManager()
 

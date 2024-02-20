@@ -9,9 +9,9 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
 
-# import customidenticon
-
 from . import db
+
+# import customidenticon
 
 
 # We inherit from UserMixin to get the required @property for free

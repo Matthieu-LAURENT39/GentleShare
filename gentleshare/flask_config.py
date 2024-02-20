@@ -1,6 +1,6 @@
-from loguru import logger
-from loguru import logger
 import secrets
+
+from loguru import logger
 
 _SECRET_KEY_FILE = "./secret_key.txt"
 
