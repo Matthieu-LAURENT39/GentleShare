@@ -27,7 +27,8 @@ class User(db.Model, UserMixin):
     password_hash: Mapped[str]
     """
     The password's hash, of the form 'method$salt$hash'
-    See also: https://werkzeug.palletsprojects.com/en/1.0.x/utils/#werkzeug.security.generate_password_hash
+    See also:
+    https://werkzeug.palletsprojects.com/en/1.0.x/utils/#werkzeug.security.generate_password_hash
     """
 
     def set_password(self, password: str) -> None:
