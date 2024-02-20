@@ -15,6 +15,7 @@ dependencies = [
     "WTForms~=3.1",
     "waitress~=3.0",
     "loguru~=0.7",
+    "sqlalchemy-file~=0.6",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
@@ -26,9 +27,15 @@ dynamic = ["version"]
 source = "scm"
 
 [tool.pdm.dev-dependencies]
-lint = ["flake8>=7.0.0", "black>=24.2.0", "mypy>=1.8.0"]
+lint = [
+    "flake8>=7.0.0",
+    "black>=24.2.0",
+    "mypy>=1.8.0",
+    "isort~=5.13",
+    "docstr-coverage>=2.3.0",
+]
 test = ["pytest"]
-doc = ["pdoc>=14.4.0", "docstr-coverage>=2.3.0"]
+doc = ["pdoc>=14.4.0"]
 
 [tool.pdm]
 distribution = false
@@ -36,3 +43,15 @@ distribution = false
 [tool.pdm.scripts]
 serve = "waitress-serve --port=8080 --call gentleshare:create_app"
 debug = "flask --app gentleshare:create_app --debug run --host=localhost --port=5000 --reload --debugger"
+lint = """bash -c ' \
+echo "================ Sorting imports =================" && \
+isort gentleshare/ && \
+echo "============== Formating with black ==============" && \
+black gentleshare/ && \
+echo "============== Checking with flake8 ==============" && \
+flake8 gentleshare/' \
+"""
+
+# Tools configs
+[tool.isort]
+profile = "black"
