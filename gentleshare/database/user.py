@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
     id: Mapped[int] = mapped_column(primary_key=True)
     # collation="NOCASE" means the comparison is case-insensitive
     username: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
+    description: Mapped[str] = mapped_column(String)
     # email: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
     password_hash: Mapped[str]
     """
@@ -30,6 +31,14 @@ class User(db.Model, UserMixin):
     See also:
     https://werkzeug.palletsprojects.com/en/1.0.x/utils/#werkzeug.security.generate_password_hash
     """
+    totp_secret: Mapped[str]
+    """
+    The secret for the TOTP (Time-based One-Time Password) algorithm
+    """
+    totp_enabled: Mapped[bool]
+
+    files = relationship("File", back_populates="owner")
+    """The files uploaded by the user"""
 
     def set_password(self, password: str) -> None:
         """Set the user's password by storing its hash
