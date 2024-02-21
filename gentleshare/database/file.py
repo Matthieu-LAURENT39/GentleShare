@@ -3,6 +3,11 @@ from __future__ import annotations
 from sqlalchemy import Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy_file import FileField
+from typing import TYPE_CHECKING
+from .user_file_favorite import user_file_favorites
+
+if TYPE_CHECKING:
+    from .user import User
 
 from . import db
 from ..classes import EducationLevel, Subject
@@ -18,7 +23,7 @@ class File(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
 
     owner_id = mapped_column(Integer, db.ForeignKey("users.id"), nullable=False)
-    owner = relationship("User", back_populates="files")
+    owner = relationship("User", back_populates="uploaded_files")
     """The user who uploaded the file"""
 
     title: Mapped[str]
@@ -33,3 +38,8 @@ class File(db.Model):
 
     content = mapped_column(FileField, nullable=False)
     """The actual file"""
+
+    favorited_by: Mapped[list["User"]] = relationship(
+        secondary=user_file_favorites, back_populates="favorited_files"
+    )
+    """The users who favorited the file"""

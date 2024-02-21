@@ -15,7 +15,7 @@ class Course(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
 
     owner_id = mapped_column(Integer, db.ForeignKey("users.id"), nullable=False)
-    owner = relationship("User", back_populates="files")
+    owner = relationship("User", back_populates="owned_courses")
     """The user who offers the course"""
 
     title: Mapped[str]

@@ -8,6 +8,13 @@ from flask_login import UserMixin
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
+from typing import TYPE_CHECKING, Optional
+from .user_file_favorite import user_file_favorites
+
+if TYPE_CHECKING:
+    from .file import File
+    from .course import Course
+    from .review import Review
 
 from . import db
 
@@ -23,7 +30,7 @@ class User(db.Model, UserMixin):
     id: Mapped[int] = mapped_column(primary_key=True)
     # collation="NOCASE" means the comparison is case-insensitive
     username: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
-    description: Mapped[str] = mapped_column(String)
+    about_me: Mapped[Optional[str]] = mapped_column(String)
     # email: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
     password_hash: Mapped[str]
     """
@@ -35,10 +42,23 @@ class User(db.Model, UserMixin):
     """
     The secret for the TOTP (Time-based One-Time Password) algorithm
     """
-    totp_enabled: Mapped[bool]
+    totp_enabled: Mapped[bool] = mapped_column(default=False)
 
-    files = relationship("File", back_populates="owner")
+    uploaded_files: Mapped[list["File"]] = relationship("File", back_populates="owner")
     """The files uploaded by the user"""
+
+    owned_courses: Mapped[list["Course"]] = relationship(
+        "Course", back_populates="owner"
+    )
+    """The courses offered by the user"""
+
+    favorited_files: Mapped[list["File"]] = relationship(
+        secondary=user_file_favorites, back_populates="favorited_by"
+    )
+    """The files favorited by the user"""
+
+    reviews: Mapped[list["Review"]] = relationship("Review", back_populates="review")
+    """The reviews left by the user"""
 
     def set_password(self, password: str) -> None:
         """Set the user's password by storing its hash
@@ -48,7 +68,7 @@ class User(db.Model, UserMixin):
         """
         self.password_hash = generate_password_hash(password)
 
-    def verify_password(self, password: str) -> bool:
+    def check_password(self, password: str) -> bool:
         """Checks if the given password is correct
 
         Args:
