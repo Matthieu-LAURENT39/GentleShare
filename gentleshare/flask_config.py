@@ -20,3 +20,12 @@ class Config:
 
     # SQLAlchemy
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
+
+
+class TestConfig(Config):
+    def __init__(self) -> None: ...
+
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SECRET_KEY = "test"
