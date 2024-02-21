@@ -20,7 +20,7 @@ class Review(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
 
     reviewer_id = mapped_column(Integer, db.ForeignKey("users.id"), nullable=False)
-    review = relationship("User", back_populates="reviews")
+    reviewer = relationship("User", back_populates="reviews")
     """The user who reviewed the course"""
 
     course_id = mapped_column(Integer, db.ForeignKey("courses.id"), nullable=False)
