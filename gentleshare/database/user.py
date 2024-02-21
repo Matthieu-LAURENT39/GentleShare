@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
     id: Mapped[int] = mapped_column(primary_key=True)
     # collation="NOCASE" means the comparison is case-insensitive
     username: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
-    about_me: Mapped[Optional[str]] = mapped_column(String)
+    about_me: Mapped[Optional[str]]
     # email: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
     password_hash: Mapped[str]
     """
@@ -38,7 +38,9 @@ class User(db.Model, UserMixin):
     See also:
     https://werkzeug.palletsprojects.com/en/1.0.x/utils/#werkzeug.security.generate_password_hash
     """
-    totp_secret: Mapped[str]
+
+    # TODO: Add an actual totp token
+    totp_secret: Mapped[str] = mapped_column(default="CHANGEME")
     """
     The secret for the TOTP (Time-based One-Time Password) algorithm
     """
