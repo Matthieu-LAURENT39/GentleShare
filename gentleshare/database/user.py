@@ -59,7 +59,7 @@ class User(db.Model, UserMixin):
     )
     """The files favorited by the user"""
 
-    reviews: Mapped[list["Review"]] = relationship("Review", back_populates="review")
+    reviews: Mapped[list["Review"]] = relationship("Review", back_populates="reviewer")
     """The reviews left by the user"""
 
     def set_password(self, password: str) -> None:
