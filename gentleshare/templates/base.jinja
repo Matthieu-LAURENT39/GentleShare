@@ -45,9 +45,18 @@
             </div>
         </div>
     </nav>
+    
     {% endblock header %}
 
     {% block content required %}{% endblock content %}
+
+    {% block footer%}
+    <footer class="footer mt-auto py-3 bg-light fixed-bottom">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 GentleShare. All rights reserved.</span>
+        </div>
+    </footer>
+    {% endblock footer %}
 </body>
 
 </html>
