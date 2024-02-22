@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from sqlalchemy import Integer
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy_file import FileField
+from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
+import sqlalchemy_file
 from typing import TYPE_CHECKING
+from sqlalchemy_file.storage import StorageManager
 from .user_file_favorite import user_file_favorites
 
 if TYPE_CHECKING:
@@ -12,13 +13,19 @@ if TYPE_CHECKING:
 from . import db
 from ..classes import EducationLevel, Subject
 
-# import customidenticon
-
 
 class File(db.Model):
     """A file uploaded by a user"""
 
     __tablename__ = "files"
+
+    def __init__(self, *args, **kwargs):
+        # sqlalchemy_file.FileField doesn't support nullable=False, we
+        # have to do the check ourselves
+        if kwargs.get("file_info") is None:
+            # We can't raise IntegrityError ourselves, so we use ValueError
+            raise ValueError("file_info cannot be None")
+        super().__init__(*args, **kwargs)
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
@@ -36,10 +43,19 @@ class File(db.Model):
     subject: Mapped[Subject]
     """The subject the file is associated with"""
 
-    content = mapped_column(FileField, nullable=False)
-    """The actual file"""
+    # file_info: Mapped[sqlalchemy_file.StoredFile] = mapped_column(
+    #     sqlalchemy_file.FileField(upload_storage="files"), nullable=False
+    # )
+    file_info = mapped_column(
+        sqlalchemy_file.FileField(upload_storage="files"), nullable=False
+    )
+    """The info about the actual file"""
 
     favorited_by: Mapped[list["User"]] = relationship(
         secondary=user_file_favorites, back_populates="favorited_files"
     )
     """The users who favorited the file"""
+
+    @property
+    def stored_file(self):
+        return StorageManager.get_file(self.file_info["path"])
