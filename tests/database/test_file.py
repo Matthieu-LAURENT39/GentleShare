@@ -4,6 +4,7 @@ from gentleshare.database import User, File
 from gentleshare.classes import EducationLevel, Subject
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy_file
 import sqlalchemy.exc
 
 
@@ -21,6 +22,7 @@ def test_insert_and_favorite_file(app: Flask):
         description="Epic file",
         education_level=EducationLevel.HIGH,
         subject=Subject.ENGLISH,
+        file_info=sqlalchemy_file.File(content="Hello, world!", filename="hello.txt"),
     )
     db.session.add(file)
     db.session.commit()
@@ -36,6 +38,10 @@ def test_insert_and_favorite_file(app: Flask):
     assert retrieved_file.education_level == EducationLevel.HIGH
     assert retrieved_file.subject == Subject.ENGLISH
 
+    # Check the file's content
+    assert retrieved_file.stored_file.read() == b"Hello, world!"
+    assert retrieved_file.stored_file.filename == "hello.txt"
+
     assert retrieved_file.favorited_by == []
     assert file in user.uploaded_files
 
@@ -45,3 +51,24 @@ def test_insert_and_favorite_file(app: Flask):
 
     assert file in user.favorited_files
     assert user in file.favorited_by
+
+
+def test_insert_no_file(app: Flask):
+    """Test that a file cannot be inserted without a file_info"""
+
+    user = User(username="test_user")
+    user.set_password("test_password")
+    db.session.add(user)
+    db.session.commit()
+
+    # Create a file
+    with pytest.raises(ValueError):
+        file = File(
+            owner=user,
+            title="My cool file",
+            description="Epic file",
+            education_level=EducationLevel.HIGH,
+            subject=Subject.ENGLISH,
+        )
+        db.session.add(file)
+        db.session.commit()

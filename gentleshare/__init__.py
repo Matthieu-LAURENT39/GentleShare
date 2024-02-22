@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from pprint import pprint
 from typing import TYPE_CHECKING, Callable, Optional
+from sqlalchemy_file.storage import StorageManager
+from libcloud.storage.drivers.local import StorageDriver, LocalStorageDriver
+import os
 
 from flask import Flask
 from flask_login import LoginManager
@@ -27,6 +30,12 @@ def load_user(user_id: str) -> Optional["User"]:
     return User.query.filter_by(id=user_id).first()
 
 
+# Configure Storage
+os.makedirs("./uploads/files", 0o700, exist_ok=True)
+container = LocalStorageDriver("./uploads").get_container("files")
+StorageManager.add_storage("files", container)
+
+
 def create_app(config: object | Callable = Config) -> Flask:
     """App factory for the Flask app
 
@@ -45,7 +54,7 @@ def create_app(config: object | Callable = Config) -> Flask:
         static_url_path="/static",
     )
 
-    # Calls init,
+    # Calls init
     if callable(config):
         config = config()
 
