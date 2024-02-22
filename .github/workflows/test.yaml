@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm install --dev
+          pdm install --dev --frozen-lockfile
 
       - name: Run tests
         run: |
