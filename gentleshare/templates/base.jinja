@@ -47,10 +47,10 @@
     </nav>
     {% endblock header %}
 
-    {% block flash_notices %}
+    {% block flashed_messages %}
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-    <div id="notice-container" class="container">
+    <div id="flashed-messages-container" class="container">
         {% for category, message in messages %}
         <div class="alert alert-{{category}} mb-2" role="alert">
             {{message}}
@@ -59,7 +59,7 @@
     </div>
     {% endif %}
     {% endwith %}
-    {% endblock flash_notices %}
+    {% endblock flashed_messages %}
 
     {% block content required %}{% endblock content %}
 
