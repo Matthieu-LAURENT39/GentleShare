@@ -5,7 +5,7 @@
 groups = ["default", "lint", "doc"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:37563751597d676c9a096c52ceeea722aba729ebb95845ed3e94807ee48827aa"
+content_hash = "sha256:fb95f89acaf4c760d9adc30d0a7c97b362f341a357c9284685a921dd1c2b126d"
 
 [[package]]
 name = "apache-libcloud"
@@ -130,6 +130,17 @@ dependencies = [
 files = [
     {file = "docstr-coverage-2.3.0.tar.gz", hash = "sha256:a8a1943ce476123706c8f0d30000b7f6e153a4c41ccd2dfe56daffa8ff540c4b"},
     {file = "docstr_coverage-2.3.0-py3-none-any.whl", hash = "sha256:1db42156fc521696ae9264b8290647048f79ac81d0b5866e933d5ef891d06cf2"},
+]
+
+[[package]]
+name = "fasteners"
+version = "0.19"
+requires_python = ">=3.6"
+summary = "A python package that provides useful locks"
+groups = ["default"]
+files = [
+    {file = "fasteners-0.19-py3-none-any.whl", hash = "sha256:758819cb5d94cdedf4e836988b74de396ceacb8e2794d21f82d131fd9ee77237"},
+    {file = "fasteners-0.19.tar.gz", hash = "sha256:b4f37c3ac52d8a445af3a66bce57b33b5e90b97c696b7b984f530cf8f0ded09c"},
 ]
 
 [[package]]

@@ -16,6 +16,8 @@ dependencies = [
     "waitress~=3.0",
     "loguru~=0.7",
     "sqlalchemy-file~=0.6",
+    # Required by sqlalchemy-file
+    "fasteners~=0.19",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
@@ -51,6 +53,7 @@ black gentleshare/ && \
 echo "============== Checking with flake8 ==============" && \
 flake8 gentleshare/' \
 """
+test = "pytest tests/"
 
 # Tools configs
 [tool.isort]
