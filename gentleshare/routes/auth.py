@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
+from markupsafe import escape
 from flask_login import login_user
 from . import main
 from ..database import User, db
@@ -48,7 +49,7 @@ def register() -> str:
             db.session.commit()
         # If the user already exists
         except IntegrityError:
-            flash(f"Username is already taken", "danger")
+            flash(f"Username '{escape(username)}' is already taken", "danger")
             return render_template("register.jinja")
 
         flash("User created", "success")
