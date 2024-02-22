@@ -22,7 +22,7 @@ def login() -> str:
             login_user(user)
             return redirect(url_for("main.index"))
 
-        flash("Invalid username or password", "error")
+        flash("Invalid username or password", "danger")
 
     return render_template("login.jinja")
 
@@ -48,7 +48,7 @@ def register() -> str:
             db.session.commit()
         # If the user already exists
         except IntegrityError:
-            flash(f"Username is already taken", "error")
+            flash(f"Username is already taken", "danger")
             return render_template("register.jinja")
 
         flash("User created", "success")

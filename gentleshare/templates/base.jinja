@@ -45,8 +45,21 @@
             </div>
         </div>
     </nav>
-    
     {% endblock header %}
+
+    {% block flash_notices %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div id="notice-container" class="container">
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}} mb-2" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    {% endblock flash_notices %}
 
     {% block content required %}{% endblock content %}
 
