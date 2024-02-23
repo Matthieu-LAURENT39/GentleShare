@@ -66,5 +66,5 @@ class File(db.Model):
         return url_for(
             "main.serve_files",
             storage=self.file_info["upload_storage"],
-            file_id=self.file_info["path"],
+            file_id=self.file_info["file_id"],
         )
