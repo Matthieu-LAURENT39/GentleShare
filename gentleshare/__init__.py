@@ -3,7 +3,7 @@ from __future__ import annotations
 from pprint import pprint
 from typing import TYPE_CHECKING, Callable, Optional
 from libcloud.storage.drivers.local import StorageDriver, LocalStorageDriver
-import os
+import humanize.i18n
 
 from flask import Flask
 from flask_login import LoginManager
@@ -28,6 +28,10 @@ def load_user(user_id: str) -> Optional["User"]:
     """
 
     return User.query.filter_by(id=user_id).first()
+
+
+# Setup the locale for humanize
+humanize.i18n.activate("fr_FR")
 
 
 def create_app(config: object | Callable = Config) -> Flask:

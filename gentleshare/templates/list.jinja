@@ -14,7 +14,7 @@
             {% if file_list %}
             <ul>
                 {% for file in file_list %}
-                <li><a href="{{file.file_url}}">{{file.stored_file.filename}}</a> ({{file.file_size}})</li>
+                <li><a href="{{file.file_url}}">{{file.stored_file.filename}}</a> ({{file.pretty_file_size}})</li>
                 {% endfor %}
             </ul>
             {% else %}
