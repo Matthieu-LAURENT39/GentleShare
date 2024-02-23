@@ -12,3 +12,4 @@ from . import auth
 from . import upload
 from . import list
 from . import static
+from . import errors
