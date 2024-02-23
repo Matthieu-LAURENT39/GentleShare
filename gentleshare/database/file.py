@@ -7,6 +7,7 @@ import sqlalchemy_file
 from typing import TYPE_CHECKING
 from sqlalchemy_file.storage import StorageManager
 from .user_file_favorite import user_file_favorites
+from datetime import datetime, UTC
 import humanize
 
 if TYPE_CHECKING:
@@ -31,8 +32,11 @@ class File(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    owner_id = mapped_column(Integer, db.ForeignKey("users.id"), nullable=False)
-    owner = relationship("User", back_populates="uploaded_files")
+    uploaded_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC))
+    """The date and time the file was uploaded, in UTC"""
+
+    uploader_id = mapped_column(Integer, db.ForeignKey("users.id"), nullable=False)
+    uploader = relationship("User", back_populates="uploaded_files")
     """The user who uploaded the file"""
 
     title: Mapped[str]

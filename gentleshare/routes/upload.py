@@ -16,7 +16,7 @@ def upload_file() -> str:
     if request.method == "POST":
         uploaded_file = request.files["file"]
         f = File(
-            owner=current_user,
+            uploader=current_user,
             file_info=sqlalchemy_file.File(
                 content=uploaded_file.stream, filename=uploaded_file.filename
             ),

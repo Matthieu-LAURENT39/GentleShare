@@ -46,7 +46,9 @@ class User(db.Model, UserMixin):
     """
     totp_enabled: Mapped[bool] = mapped_column(default=False)
 
-    uploaded_files: Mapped[list["File"]] = relationship("File", back_populates="owner")
+    uploaded_files: Mapped[list["File"]] = relationship(
+        "File", back_populates="uploader"
+    )
     """The files uploaded by the user"""
 
     owned_courses: Mapped[list["Course"]] = relationship(

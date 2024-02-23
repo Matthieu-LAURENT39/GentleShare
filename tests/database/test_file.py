@@ -17,7 +17,7 @@ def test_insert_and_favorite_file(app: Flask):
 
     # Create a file
     file = File(
-        owner=user,
+        uploader=user,
         title="My cool file",
         description="Epic file",
         education_level=EducationLevel.HIGH,
@@ -64,7 +64,7 @@ def test_insert_no_file(app: Flask):
     # Create a file
     with pytest.raises(ValueError):
         file = File(
-            owner=user,
+            uploader=user,
             title="My cool file",
             description="Epic file",
             education_level=EducationLevel.HIGH,
