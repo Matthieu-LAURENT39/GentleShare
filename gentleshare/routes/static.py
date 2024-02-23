@@ -5,18 +5,25 @@ from libcloud.storage.types import (
 )
 from sqlalchemy_file.storage import StorageManager
 from flask import abort, send_file, current_app
+from loguru import logger
+from os import getcwd
+from os.path import join
 
 
 # Code from https://github.com/jowilf/sqlalchemy-file/blob/main/examples/flask/app.py
 @main.route("/medias/<storage>/<file_id>")
 def serve_files(storage, file_id):
+    logger.debug(f"Requested file {file_id} from storage {storage}")
     try:
         file = StorageManager.get_file(f"{storage}/{file_id}")
         if isinstance(file.object.driver, LocalStorageDriver):
+            logger.debug(
+                f"File {file_id} is stored in local storage ({file.get_cdn_url()}"
+            )
             # If file is stored in local storage, just return a
             # FileResponse with the fill full path
             return send_file(
-                file.get_cdn_url(),
+                join(getcwd(), file.get_cdn_url()),
                 mimetype=file.content_type,
                 download_name=file.filename,
             )
