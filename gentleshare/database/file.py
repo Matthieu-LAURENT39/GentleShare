@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from sqlalchemy import Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
+from flask import url_for
 import sqlalchemy_file
 from typing import TYPE_CHECKING
 from sqlalchemy_file.storage import StorageManager
@@ -59,3 +60,11 @@ class File(db.Model):
     @property
     def stored_file(self):
         return StorageManager.get_file(self.file_info["path"])
+
+    @property
+    def file_url(self):
+        return url_for(
+            "main.serve_files",
+            storage=self.file_info["upload_storage"],
+            file_id=self.file_info["path"],
+        )

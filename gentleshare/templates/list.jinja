@@ -1,0 +1,26 @@
+{% extends 'base.jinja' %}
+
+{% block title %}
+{{ super() }} - Liste
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- First container -->
+        <div class="col-md-6">
+            <h2 class="text-center">Fichiers</h2>
+            <ul>
+                {% for file in file_list %}
+                <li><a href="{{file.file_url}}">{{file.stored_file.filename}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Second container -->
+        <div class="col-md-6">
+            <h2 class="text-center">Cours</h2>
+            TODO!
+        </div>
+    </div>
+</div>
+{% endblock content %}
