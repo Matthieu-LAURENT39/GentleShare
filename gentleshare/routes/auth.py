@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from markupsafe import escape
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from . import main
 from ..database import User, db
 from sqlalchemy.exc import IntegrityError
@@ -57,3 +57,14 @@ def register() -> str:
         flash("User created", "success")
 
     return render_template("register.jinja")
+
+
+@main.route("/logout")
+def logout() -> str:
+    """Logout route"""
+    if current_user.is_authenticated:
+        logout_user()
+        flash("You have been logged out", "success")
+    else:
+        flash("You can't log out without being logged in", "warning")
+    return redirect(url_for("main.index"))
