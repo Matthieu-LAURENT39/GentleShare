@@ -15,13 +15,17 @@
             {% for file in file_list %}
             <div class="card my-2">
                 <div class="card-header">
-                    {{file.education_level.display_name}} - {{file.subject.display_name}}
+                    {{file.education_level.display_name | escape}} - {{file.subject.display_name | escape}}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{file.title}} ({{file.stored_file.filename}})</h5>
+                    <h5 class="card-title">{{file.title | escape}} ({{file.stored_file.filename | escape}})</h5>
                     <p class="card-text">Size: {{file.pretty_file_size}}</p>
-                    <p class="card-text">{{file.description}}</p>
+                    <p class="card-text">{{file.description | escape}}</p>
                     <a href="{{file.file_url}}" class="btn btn-primary">Télécharger</a>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    Posté par {{file.uploader.username | escape}} le {{file.uploaded_at.strftime('%d/%m/%Y %H:%M:%S')}}
+                    UTC
                 </div>
             </div>
             {% endfor %}
