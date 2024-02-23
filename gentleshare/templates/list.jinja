@@ -14,9 +14,13 @@
             {% if file_list %}
             {% for file in file_list %}
             <div class="card my-2">
+                <div class="card-header">
+                    {{file.education_level.display_name}} - {{file.subject.display_name}}
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{file.stored_file.filename}}</h5>
+                    <h5 class="card-title">{{file.title}} ({{file.stored_file.filename}})</h5>
                     <p class="card-text">Size: {{file.pretty_file_size}}</p>
+                    <p class="card-text">{{file.description}}</p>
                     <a href="{{file.file_url}}" class="btn btn-primary">Télécharger</a>
                 </div>
             </div>
