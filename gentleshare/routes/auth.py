@@ -52,6 +52,7 @@ def register() -> str:
             flash(f"Username '{escape(username)}' is already taken", "danger")
             return render_template("register.jinja")
 
+        login_user(user)
         flash("User created", "success")
 
     return render_template("register.jinja")
