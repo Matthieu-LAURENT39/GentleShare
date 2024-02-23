@@ -7,6 +7,7 @@ import sqlalchemy_file
 from sqlalchemy.exc import IntegrityError
 from flask_login import login_required, current_user
 from ..classes import EducationLevel, Subject
+from loguru import logger
 
 
 @main.route("/upload", methods=["GET", "POST"])
@@ -19,6 +20,7 @@ def upload_file() -> str:
             file_info=sqlalchemy_file.File(
                 content=uploaded_file.stream, filename=uploaded_file.filename
             ),
+            # TODO: Mettre des vrai valeurs
             title="test",
             description="test",
             education_level=EducationLevel.HIGH,
@@ -26,5 +28,10 @@ def upload_file() -> str:
         )
         db.session.add(f)
         db.session.commit()
+        logger.info(
+            f"User {current_user.username} uploaded file '{f.title}' ({f.file_info['file_id']})"
+        )
+        flash("Fichier téléversé!", "success")
+        return redirect(url_for("main.list_files_classes"))
 
     return render_template("upload.jinja")

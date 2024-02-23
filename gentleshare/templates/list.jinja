@@ -10,11 +10,16 @@
         <!-- First container -->
         <div class="col-md-6">
             <h2 class="text-center">Fichiers</h2>
+            <a href="{{url_for('main.upload_file')}}" class="btn btn-primary">Ajouter un fichier</a>
+            {% if file_list %}
             <ul>
                 {% for file in file_list %}
                 <li><a href="{{file.file_url}}">{{file.stored_file.filename}}</a></li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <p class="fw-lighter fst-italic">Rien pout l'instant.</p>
+            {% endif %}
         </div>
         <!-- Second container -->
         <div class="col-md-6">
