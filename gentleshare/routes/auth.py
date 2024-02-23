@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from markupsafe import escape
-from flask_login import login_user
+from flask_login import login_user, current_user
 from . import main
 from ..database import User, db
 from sqlalchemy.exc import IntegrityError
@@ -8,11 +8,11 @@ from sqlalchemy.exc import IntegrityError
 
 @main.route("/login", methods=["GET", "POST"])
 def login() -> str:
-    """Login route
+    """Login route"""
+    if current_user.is_authenticated:
+        flash("You are already logged in", "warning")
+        return redirect(url_for("main.index"))
 
-    Returns:
-        str: The login page
-    """
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -30,11 +30,11 @@ def login() -> str:
 
 @main.route("/register", methods=["GET", "POST"])
 def register() -> str:
-    """Register route
+    """Register route"""
+    if current_user.is_authenticated:
+        flash("You are already logged in", "warning")
+        return redirect(url_for("main.index"))
 
-    Returns:
-        str: The register page
-    """
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -49,6 +49,7 @@ def register() -> str:
             db.session.commit()
         # If the user already exists
         except IntegrityError:
+            db.session.rollback()
             flash(f"Username '{escape(username)}' is already taken", "danger")
             return render_template("register.jinja")
 
