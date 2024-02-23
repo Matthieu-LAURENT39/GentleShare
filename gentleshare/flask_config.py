@@ -21,6 +21,13 @@ class Config:
     # SQLAlchemy
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
 
+    TESTING = False
+    """
+    If the app is currently running for unit tests
+    This will have the following effects:
+    - The storage manager will use a temporary directory instead of the actual storage
+    """
+
 
 class TestConfig(Config):
     def __init__(self) -> None: ...

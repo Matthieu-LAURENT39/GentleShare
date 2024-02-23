@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pprint import pprint
 from typing import TYPE_CHECKING, Callable, Optional
-from sqlalchemy_file.storage import StorageManager
 from libcloud.storage.drivers.local import StorageDriver, LocalStorageDriver
 import os
 
@@ -12,6 +11,7 @@ from loguru import logger
 
 from .database import User, db
 from .flask_config import Config
+from .classes import setup_storage_manager
 
 login_manager = LoginManager()
 
@@ -28,12 +28,6 @@ def load_user(user_id: str) -> Optional["User"]:
     """
 
     return User.query.filter_by(id=user_id).first()
-
-
-# Configure Storage
-os.makedirs("./uploads/files", 0o700, exist_ok=True)
-container = LocalStorageDriver("./uploads").get_container("files")
-StorageManager.add_storage("files", container)
 
 
 def create_app(config: object | Callable = Config) -> Flask:
@@ -60,6 +54,9 @@ def create_app(config: object | Callable = Config) -> Flask:
 
     # We load the flask config
     app.config.from_object(config)
+
+    # Setup the storage manager
+    setup_storage_manager(app, ignore_if_already_registered=app.config["TESTING"])
 
     # SQLalchemy
     db.init_app(app)
