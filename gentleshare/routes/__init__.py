@@ -10,3 +10,5 @@ main = Blueprint("main", __name__)
 from . import front_page
 from . import auth
 from . import upload
+from . import list
+from . import static
