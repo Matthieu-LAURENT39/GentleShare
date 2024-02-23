@@ -61,7 +61,10 @@
     {% endwith %}
     {% endblock flashed_messages %}
 
-    {% block content required %}{% endblock content %}
+    <main class="container pt-5 pb-3">
+        {% block content required %}{% endblock content %}
+    </main>
+
 
     {% block footer%}
     <footer class="footer mt-auto py-3 bg-light fixed-bottom">
@@ -70,6 +73,7 @@
         </div>
     </footer>
     {% endblock footer %}
+
 </body>
 
 </html>
