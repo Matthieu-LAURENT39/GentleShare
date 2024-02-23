@@ -4,6 +4,7 @@ from flask_login import login_user, current_user, logout_user
 from . import main
 from ..database import User, db
 from sqlalchemy.exc import IntegrityError
+from loguru import logger
 
 
 @main.route("/login", methods=["GET", "POST"])
@@ -20,9 +21,11 @@ def login() -> str:
         user = User.query.filter_by(username=username).first()
 
         if user and user.check_password(password):
+            logger.info(f"Logging in user '{username}'")
             login_user(user)
             return redirect(url_for("main.index"))
 
+        logger.info(f"Failed login attempt for user '{username}'")
         flash("Invalid username or password", "danger")
 
     return render_template("login.jinja")
@@ -39,7 +42,7 @@ def register() -> str:
         username = request.form.get("username")
         password = request.form.get("password")
 
-        print(username, password)
+        logger.info(f"Registering user '{username}'")
 
         user = User(username=username)
         user.set_password(password)
