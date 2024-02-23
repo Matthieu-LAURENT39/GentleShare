@@ -7,6 +7,7 @@ import sqlalchemy_file
 from typing import TYPE_CHECKING
 from sqlalchemy_file.storage import StorageManager
 from .user_file_favorite import user_file_favorites
+import humanize
 
 if TYPE_CHECKING:
     from .user import User
@@ -73,3 +74,8 @@ class File(db.Model):
     def file_size(self) -> int:
         """File size, in bytes"""
         return self.file_info["size"]
+
+    @property
+    def pretty_file_size(self) -> str:
+        """File size, in a human-readable format"""
+        return humanize.naturalsize(self.file_size)

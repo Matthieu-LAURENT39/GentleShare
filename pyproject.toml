@@ -18,6 +18,7 @@ dependencies = [
     "sqlalchemy-file~=0.6",
     # Required by sqlalchemy-file
     "fasteners~=0.19",
+    "humanize~=4.9",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
