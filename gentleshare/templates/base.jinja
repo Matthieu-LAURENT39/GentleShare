@@ -47,7 +47,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('main.register')}}">Inscription</a>
                     </li>
-                    {% endif %}
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('main.logout')}}">Déconnexion</a>
+                        {% endif %}
 
                 </ul>
             </div>
