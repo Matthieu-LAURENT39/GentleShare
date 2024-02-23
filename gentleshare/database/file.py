@@ -68,3 +68,8 @@ class File(db.Model):
             storage=self.file_info["upload_storage"],
             file_id=self.file_info["file_id"],
         )
+
+    @property
+    def file_size(self) -> int:
+        """File size, in bytes"""
+        return self.file_info["size"]
