@@ -32,6 +32,6 @@ def upload_file() -> str:
             f"User {current_user.username} uploaded file '{f.title}' ({f.file_info['file_id']})"
         )
         flash("Fichier téléversé!", "success")
-        return redirect(url_for("main.list_files_classes"))
+        return redirect(url_for("main.index"))
 
     return render_template("upload.jinja")

@@ -1,174 +1,43 @@
 {% extends 'base.jinja' %}
 
-{% block head %}
-{{ super() }}
-{# Custom CSS #}
-<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
-
-{# Custom JS#}
-<script src="{{url_for('static', filename='js/index.js')}}"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-{% endblock %}
-
-
 {% block title %}
-{{ super() }} - Accueil
+{{ super() }} - Liste
 {% endblock %}
 
 {% block content %}
-
-<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Les cours du moment :</h5>
-
-<div class="grid-container">
-{% if course_list %}
-{% for course in course_list[:6] %}
-<div
-    class="max-w-sm p-6 bg-white border border-gray-200 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
-    <div>
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{
-            course.education_level.display_name | escape }} - {{ course.title | escape }}</h5>
-
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ course.description | escape | markdown }}</p>
-    </div>
-    <a href="tel:{{ course.owner.phone_number }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:text-blue-500" id="telephone-link"
-        id="telephone">
-        <svg class="svgTelephone h-6 w-6 text-blue-500 " width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" />
-            <path
-                d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
-        </svg>
-        <p class="ml-3 hidden" id="telephone-text">{{ course.owner.phone_number }}</p>
-    </a>
-    <p class="mt-3 text-gray-500 italic">Ajouté le {{course.created_at.strftime('%d/%m/%Y %H:%M:%S')}} Par
-                {{course.owner.username}}</p>
-</div>
-{% endfor %}
-{% else %}
-<a href="/create_course" ><p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p></a>
-{% endif %}
-</div>
-
-
-
-<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Les fichiers du moment :</h5>
-
-<div class="grid-container">
-    {% if file_list %}
-    {% for file in file_list[:6] %}
-    <div class="grid-item">
-        <div
-            class="max-w-sm p-6 bg-white border border-gray-200 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
-            <div>
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    [{{file.subject.display_name | escape}}] {{file.education_level.display_name | escape}} -
-                    {{file.title | escape}}
-                </h5>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{file.description | escape | markdown}}
-                </p>
+<div class="container">
+    <div class="row">
+        <!-- First container -->
+        <div class="col-md-6">
+            <h2 class="text-center">Fichiers</h2>
+            <a href="{{url_for('main.upload_file')}}" class="btn btn-primary mb-2">Ajouter un fichier</a>
+            {% if file_list %}
+            {% for file in file_list %}
+            <div class="card my-2">
+                <div class="card-header">
+                    {{file.education_level.display_name | escape}} - {{file.subject.display_name | escape}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{file.title | escape}} ({{file.stored_file.filename | escape}})</h5>
+                    <p class="card-text">Size: {{file.pretty_file_size}}</p>
+                    <p class="card-text">{{file.description | escape}}</p>
+                    <a href="{{file.file_url}}" class="btn btn-primary">Télécharger</a>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    Posté par {{file.uploader.username | escape}} le {{file.uploaded_at.strftime('%d/%m/%Y %H:%M:%S')}}
+                    UTC
+                </div>
             </div>
-            <a href="{{file.file_url}}"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Télécharger
-                <svg class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M3.293 9.293a1 1 0 011.414 0L9 13.586V3a1 1 0 112 0v10.586l4.293-4.293a1 1 0 111.414 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </a>
-            <p class="mt-3 text-gray-500 italic">Ajouté le {{file.uploaded_at.strftime('%d/%m/%Y %H:%M:%S')}} Par
-                {{file.uploader.username}}</p>
+            {% endfor %}
+            {% else %}
+            <p class="fw-lighter fst-italic">Rien pout l'instant.</p>
+            {% endif %}
+        </div>
+        <!-- Second container -->
+        <div class="col-md-6">
+            <h2 class="text-center">Cours</h2>
+            TODO!
         </div>
     </div>
-    {% endfor %}
-    {% else %}
-    <a href="/upload" ><p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p></a>
-    {% endif %}
 </div>
-
-
-<script>
-    const svgTelephones = document.querySelectorAll('.svgTelephone');
-    const numero = document.getElementById('numero');
-    const telephoneLink = document.getElementById('telephone-link');
-    const telephoneText = document.getElementById('telephone-text');
-
-    const svgTelephonesArray = Array.from(svgTelephones);
-
-    let isUnlocked = false;
-
-    svgTelephonesArray.forEach(svgTelephone => {
-        svgTelephone.addEventListener('mouseenter', vibrate);
-        svgTelephone.addEventListener('mouseleave', stopVibrate);
-    });
-
-    function vibrate() {
-        this.classList.add('animate-vibrate');
-        this.nextElementSibling.classList.remove('hidden');
-    }
-
-    function stopVibrate() {
-        this.classList.remove('animate-vibrate');
-        this.nextElementSibling.classList.add('hidden');
-    }
-
-    function animateText(str) {
-    let index = 0;
-    const intervalId = setInterval(() => {
-        telephoneText.textContent += str[index++];
-        if (index === str.length) {
-            clearInterval(intervalId);
-        }
-    }, 100);
-    }
-
-    telephoneLink.addEventListener('mouseleave', () => {
-        isUnlocked = true;
-    });
-
-    const formattedPhoneNumber = telephoneText.textContent.split('').map((char, index) => {
-    if (index % 2 !== 0 && index !== telephoneText.textContent.length - 1) {
-        return char + '.';
-    } else {
-        return char;
-    }
-    }).join('');
-
-    telephoneText.textContent = formattedPhoneNumber;
-
-    telephoneLink.addEventListener('mouseleave', () => {
-        telephoneText.classList.remove('hidden');
-    });
-
-    telephoneLink.addEventListener('mouseenter', () => {
-    if (!isUnlocked) {
-    telephoneText.classList.remove('hidden');
-
-    const textToAnimate = telephoneText.textContent;
-
-    telephoneText.textContent = '';
-
-    animateText(textToAnimate);
-    }
-    });
-
-    const search_bar = document.getElementById('search-bar');
-    const searchables = document.querySelectorAll('[data-title]');
-
-    search_bar.addEventListener('input', () => {
-        const search_query = search_bar.value.toLowerCase();
-        searchables.forEach(searchable => {
-            if (searchable.dataset.title.toLowerCase().includes(search_query)
-                || searchable.dataset.description.toLowerCase().includes(search_query)) {
-                searchable.style.display = 'block';
-            } else {
-                searchable.style.display = 'none';
-            }
-        });
-    });
-</script>
 {% endblock content %}
