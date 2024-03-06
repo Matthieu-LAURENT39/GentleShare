@@ -108,6 +108,10 @@ body {
     margin: 0 5px;
   }
 
+  .footer {
+    flex-shrink: 0;
+}
+
   /* mobile styles */
   @media only screen and (max-width: 767px) { 
     .menu-container {
