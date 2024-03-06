@@ -18,9 +18,9 @@
         <div class="col-md">
             <h1> Informations personnelles </h1>
             <form action="{{url_for('main.profile')}}" method="POST">
-                {{form_field(form.display_name)}}
+                {{form_field(form.display_name, form)}}
                 <br>
-                {{form_field(form.about)}}
+                {{form_field(form.about, form)}}
                 <br>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
