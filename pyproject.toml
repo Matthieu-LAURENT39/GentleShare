@@ -19,6 +19,8 @@ dependencies = [
     # Required by sqlalchemy-file
     "fasteners~=0.19",
     "humanize~=4.9",
+    "pyotp~=2.9",
+    "Flask-QRcode~=3.1",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"

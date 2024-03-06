@@ -4,11 +4,14 @@ SQLAlchemy model for a user
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Optional
+
+import pyotp
 from flask_login import UserMixin
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
-from typing import TYPE_CHECKING, Optional
+
 from .user_file_favorite import user_file_favorites
 
 if TYPE_CHECKING:
@@ -82,3 +85,29 @@ class User(db.Model, UserMixin):
             bool: True if the password is correct, False otherwise
         """
         return check_password_hash(self.password_hash, password)
+
+    @property
+    def _totp(self) -> pyotp.TOTP:
+        return pyotp.TOTP(self.totp_secret)
+
+    def check_totp(self, code: int, valid_window: int = 3) -> bool:
+        """Checks if the given TOTP token is correct
+
+        Args:
+            token (str): The TOTP token to check
+
+        Returns:
+            bool: True if the token is correct, False otherwise
+        """
+        return self._totp.verify(code, valid_window=valid_window)
+
+    @property
+    def totp_uri(self) -> str:
+        """Generates a QR code for the TOTP secret
+
+        Returns:
+            str: The URL of the QR code
+        """
+        return self._totp.provisioning_uri(
+            name=self.username, issuer_name="GentleShare"
+        )
