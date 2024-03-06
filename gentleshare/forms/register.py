@@ -7,5 +7,6 @@ class RegisterForm(FlaskForm):
     username = StringField("username", validators=[DataRequired()])
     password = PasswordField("password", validators=[DataRequired()])
     password_confirm = PasswordField(
-        "Password confirmation", validators=[DataRequired(), EqualTo("password")]
+        "Password confirmation",
+        validators=[DataRequired(), EqualTo("password", "Passwords must match")],
     )

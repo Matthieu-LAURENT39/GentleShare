@@ -11,8 +11,8 @@
     <h2>Login Form</h2>
     <form action="{{url_for('main.login')}}" method="POST">
         {{ form.csrf_token }}
-        {{form_field(form.username)}}
-        {{form_field(form.password)}}
+        {{form_field(form.username, form)}}
+        {{form_field(form.password, form)}}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

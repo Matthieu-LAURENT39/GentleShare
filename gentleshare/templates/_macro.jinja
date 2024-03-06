@@ -1,7 +1,26 @@
-{% macro form_field(field) -%}
+{% macro form_field(field, form) -%}
 <div class="form-group">
     {# <label id="{{field.label.field_id}}" for="{{field.name}}">{{field.label.text}}</label> #}
+
+    {% if not form.is_submitted() %}
+    {% set validation_class = "" %}
+    {% elif field.errors %}
+    {% set validation_class = "is-invalid" %}
+    {% else %}
+    {% set validation_class = "is-valid" %}
+    {% endif %}
+
+
     {{ field.label }}
-    {{ field(class_="form-control") }}
+    {{ field(class_="form-control " + validation_class, **{"aria-describedby":
+    field.name+"-error"}) }}
+
+    {% if field.errors %}
+    {% for error in field.errors %}
+    <div id="{{field.name}}-error" class="invalid-feedback">
+        {{error}}
+    </div>
 </div>
+{% endfor %}
+{% endif %}
 {%- endmacro %}

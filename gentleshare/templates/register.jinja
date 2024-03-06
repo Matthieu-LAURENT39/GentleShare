@@ -11,9 +11,9 @@
     <h2>Registration Form</h2>
     <form action="{{url_for('main.register')}}" method="POST">
         {{ form.csrf_token }}
-        {{form_field(form.username)}}
-        {{form_field(form.password)}}
-        {{form_field(form.password_confirm)}}
+        {{form_field(form.username, form)}}
+        {{form_field(form.password, form)}}
+        {{form_field(form.password_confirm, form)}}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
