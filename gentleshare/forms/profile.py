@@ -4,5 +4,5 @@ from wtforms.validators import DataRequired
 
 
 class ProfileForm(FlaskForm):
-    displayname = StringField("Nom", validators=[DataRequired()])
+    display_name = StringField("Nom", validators=[DataRequired()])
     about = StringField("A propos de moi")

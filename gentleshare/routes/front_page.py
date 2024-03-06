@@ -4,6 +4,7 @@ from flask_login import current_user
 from ..database import File, User
 from . import main
 from ..forms import ProfileForm
+from ..database import db
 
 
 @main.route("/")
@@ -18,13 +19,14 @@ def profile():
     form = ProfileForm()
 
     if form.validate_on_submit():
-        displayname = form.displayname.data
+        displayname = form.display_name.data
         about = form.about.data
-        
+
         current_user: User = current_user
-        current_user.displayname = displayname
+        current_user.display_name = displayname
+        current_user.about_me = about
 
-        
-
+        db.session.add(current_user)
+        db.session.commit()
 
     return render_template("profile.jinja", form=form)

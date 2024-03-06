@@ -75,7 +75,6 @@ def register() -> str:
 
 @main.route("/logout")
 def logout() -> str:
-    """Logout route"""
     if current_user.is_authenticated:
         logout_user()
         flash("You have been logged out", "success")

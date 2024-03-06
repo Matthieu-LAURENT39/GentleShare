@@ -9,20 +9,20 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        
+
         <div class="col-md">
-        <h1> Informations personnelles </h1>
+            <h1> Informations personnelles </h1>
             <form action="{{url_for('main.profile')}}" method="POST">
-                        {{form_field(form.displayname)}}
-                        <br>
-                        {{form_field(form.about)}}
-                        <br>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                {{form_field(form.display_name)}}
+                <br>
+                {{form_field(form.about)}}
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
         <div class="col-md-1 border-end me-5"></div>
         <div class="col-md">
-        <h1> Paramètres </h1>
+            <h1> Paramètres </h1>
             <div class="container">
                 <h3>2FA Double authentification {{current_user.username | safe}}</h3>
                 <h3>TOTP</h3>
