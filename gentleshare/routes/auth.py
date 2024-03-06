@@ -99,8 +99,8 @@ def validate_totp() -> str:
 
     return render_template("totp.jinja")
 
-@main.route('/submit', methods=['GET', 'POST'])
-def submit():
+@main.route('/connexion', methods=['GET', 'POST'])
+def connexion():
     form = ConnexionForm()
     if form.validate_on_submit():
         return redirect('/success')
