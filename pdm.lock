@@ -5,7 +5,7 @@
 groups = ["default", "doc", "lint", "test"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:c85b0ef0d7c53498f1f0032cb90d821a35f3de07431a972bdfc1dd46c8d2ff2d"
+content_hash = "sha256:9d329587f88d172734cd4628e1c28638c37f9d397642d80e4d607a544e972efd"
 
 [[package]]
 name = "apache-libcloud"
@@ -220,6 +220,22 @@ dependencies = [
 files = [
     {file = "flask_sqlalchemy-3.1.1-py3-none-any.whl", hash = "sha256:4ba4be7f419dc72f4efd8802d69974803c37259dd42f3913b0dcf75c9447e0a0"},
     {file = "flask_sqlalchemy-3.1.1.tar.gz", hash = "sha256:e4b68bb881802dda1a7d878b2fc84c06d1ee57fb40b874d3dc97dabfa36b8312"},
+]
+
+[[package]]
+name = "flask-wtf"
+version = "1.2.1"
+requires_python = ">=3.8"
+summary = "Form rendering, validation, and CSRF protection for Flask with WTForms."
+groups = ["default"]
+dependencies = [
+    "flask",
+    "itsdangerous",
+    "wtforms",
+]
+files = [
+    {file = "flask_wtf-1.2.1-py3-none-any.whl", hash = "sha256:fa6793f2fb7e812e0fe9743b282118e581fb1b6c45d414b8af05e659bd653287"},
+    {file = "flask_wtf-1.2.1.tar.gz", hash = "sha256:8bb269eb9bb46b87e7c8233d7e7debdf1f8b74bf90cc1789988c29b37a97b695"},
 ]
 
 [[package]]
