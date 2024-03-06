@@ -88,7 +88,13 @@ class User(db.Model, UserMixin):
 
     @property
     def _totp(self) -> pyotp.TOTP:
-        return pyotp.TOTP(self.totp_secret)
+        return pyotp.TOTP(
+            self.totp_secret,
+            digits=6,
+            name=self.username,
+            issuer="GentleShare",
+            interval=30,
+        )
 
     def check_totp(self, code: int, valid_window: int = 3) -> bool:
         """Checks if the given TOTP token is correct
