@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from markupsafe import escape
 from flask_login import login_user, current_user, logout_user
 from . import main
@@ -17,10 +17,16 @@ def login() -> str:
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
+        totp = request.form.get("totp")
 
-        user = User.query.filter_by(username=username).first()
+        user: User = User.query.filter_by(username=username).first()
 
         if user and user.check_password(password):
+            if user.totp_enabled:
+                logger.info(f"Sending '{username}' to TOTP validation")
+                session["awaiting_totp"] = user.username
+                return render_template("totp.jinja")
+
             logger.info(f"Logging in user '{username}'")
             login_user(user)
             return redirect(url_for("main.index"))
@@ -71,3 +77,24 @@ def logout() -> str:
     else:
         flash("You can't log out without being logged in", "warning")
     return redirect(url_for("main.index"))
+
+
+@main.route("/totp", methods=["GET", "POST"])
+def validate_totp() -> str:
+    username = session.get("awaiting_totp")
+    if not username:
+        return redirect(url_for("main.login"))
+
+    if request.method == "POST":
+        totp = request.form.get("totp")
+        user: User = User.query.filter_by(username=username).first()
+
+        if user.check_totp(totp):
+            logger.info(f"Logging in user '{username}', after TOTP validation")
+            login_user(user)
+            session.pop("awaiting_totp")
+            return redirect(url_for("main.index"))
+
+        flash("Invalid TOTP code", "danger")
+
+    return render_template("totp.jinja")

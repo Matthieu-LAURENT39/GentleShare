@@ -1,0 +1,13 @@
+{% extends 'base.jinja' %}
+
+{% block title %}
+{{ super() }} - Connexion
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Settings for {{current_user.username | safe}}</h1>
+    <h3>TOTP</h3>
+    <img src="{{ qrcode(current_user.totp_uri) }}">
+</div>
+{% endblock content %}
