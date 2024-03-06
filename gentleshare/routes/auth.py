@@ -17,15 +17,24 @@ def login() -> str:
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
+        totp = request.form.get("totp")
 
-        user = User.query.filter_by(username=username).first()
+        user: User = User.query.filter_by(username=username).first()
 
         if user and user.check_password(password):
+            if user.totp_enabled:
+                if not user.check_totp(totp):
+                    logger.info(
+                        f"Failed login attempt for user '{username}' (invalid TOTP code)"
+                    )
+                    flash("Invalid TOTP code", "danger")
+                    return render_template("login.jinja")
+
             logger.info(f"Logging in user '{username}'")
             login_user(user)
             return redirect(url_for("main.index"))
 
-        logger.info(f"Failed login attempt for user '{username}'")
+        logger.info(f"Failed login attempt for user '{username}' (invalid credentials)")
         flash("Invalid username or password", "danger")
 
     return render_template("login.jinja")

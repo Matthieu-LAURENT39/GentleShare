@@ -2,18 +2,20 @@ from __future__ import annotations
 
 from pprint import pprint
 from typing import TYPE_CHECKING, Callable, Optional
-from libcloud.storage.drivers.local import StorageDriver, LocalStorageDriver
-import humanize.i18n
 
+import humanize.i18n
 from flask import Flask
 from flask_login import LoginManager
+from flask_qrcode import QRcode
+from libcloud.storage.drivers.local import LocalStorageDriver, StorageDriver
 from loguru import logger
 
+from .classes import setup_storage_manager
 from .database import User, db
 from .flask_config import Config
-from .classes import setup_storage_manager
 
 login_manager = LoginManager()
+qrcode = QRcode()
 
 
 @login_manager.user_loader
@@ -67,6 +69,9 @@ def create_app(config: object | Callable = Config) -> Flask:
 
     # flask-login
     login_manager.init_app(app)
+
+    # flask-qrcode
+    qrcode.init_app(app)
 
     with app.app_context():
         db.create_all()
