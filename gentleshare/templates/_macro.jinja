@@ -1,0 +1,7 @@
+{% macro form_field(field) -%}
+<div class="form-group">
+    {# <label id="{{field.label.field_id}}" for="{{field.name}}">{{field.label.text}}</label> #}
+    {{ field.label }}
+    {{ field(class_="form-control") }}
+</div>
+{%- endmacro %}
