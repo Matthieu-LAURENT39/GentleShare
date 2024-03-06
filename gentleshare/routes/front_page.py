@@ -9,7 +9,7 @@ from ..database import db
 
 @main.route("/")
 def index():
-    file_list: list[File] = File.query.all()
+    file_list: list[File] = File.query.order_by(File.uploaded_at.desc()).all()
     return render_template("index.jinja", file_list=file_list)
 
 
