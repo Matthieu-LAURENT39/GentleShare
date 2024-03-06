@@ -83,6 +83,7 @@ def logout() -> str:
 
 @main.route("/totp", methods=["GET", "POST"])
 def validate_totp() -> str:
+    # This can't be forged, it's signed by the server
     username = session.get("awaiting_totp")
     if not username:
         return redirect(url_for("main.login"))
