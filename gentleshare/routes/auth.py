@@ -64,12 +64,13 @@ def register() -> str:
         except IntegrityError:
             db.session.rollback()
             flash(f"Username '{escape(username)}' is already taken", "danger")
-            return render_template("register.jinja")
+            return render_template("register.jinja", form=form)
 
         login_user(user)
         flash("User created", "success")
+        return redirect(url_for("main.index"))
 
-    return render_template("register.jinja")
+    return render_template("register.jinja", form=form)
 
 
 @main.route("/logout")
