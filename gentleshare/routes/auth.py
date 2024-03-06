@@ -5,7 +5,8 @@ from . import main
 from ..database import User, db
 from sqlalchemy.exc import IntegrityError
 from loguru import logger
-from ..forms import LoginForm
+from ..forms.login import ConnexionForm
+from ..forms.inscription import InscriptionForm
 
 
 @main.route("/login", methods=["GET", "POST"])
@@ -107,5 +108,12 @@ def validate_totp() -> str:
 def connexion():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect("/success")
-    return render_template("connexion.jinja", form=form)
+        return redirect('/success')
+    return render_template('connexion.jinja', form=form)
+
+@main.route('/inscription', methods=['GET', 'POST'])
+def inscription():
+    form = InscriptionForm()
+    if form.validate_on_submit():
+        return redirect('/success')
+    return render_template('inscription.jinja', form=form)
