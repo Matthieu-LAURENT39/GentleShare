@@ -1,8 +1,19 @@
-<h2>Connexion</h2>
-<form action="{{ url_for('connexion') }}" method="post">
-    <label for="username">Nom d'utilisateur:</label><br>
-    <input type="text" id="username" name="username"><br>
-    <label for="password">Mot de passe:</label><br>
-    <input type="password" id="password" name="password"><br><br>
-    <input type="submit" value="Se connecter">
+{% extends 'base.jinja' %}
+
+{% block title %}
+{{ super() }} - Connexion
+{% endblock %}
+
+{% block content %}
+{# TODO: Put a better login form here #}
+<div class="container">
+    <h2>Connexion</h2>
+
+<form action="{{url_for('main.connexion')}}" method="POST">
+    {{ form.csrf_token }}
+    {{ form.username.label }} {{ form.username(size=20) }}
+    {{ form.password.label }} {{ form.password(size=20) }}
+    <input type="submit" value="Go">
 </form>
+</div>
+{% endblock content %}

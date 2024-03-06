@@ -9,10 +9,12 @@
     <h1> Informations personnelles </h1>
     <div class="col-4">
         <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" role="tab" aria-controls="name">Nom</a>
-            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" role="tab" aria-controls="first_name">Prénom</a>
-            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" role="tab" aria-controls="email">Email</a>
-            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" role="tab" aria-controls="settings">Settings</a>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Name</span>
+                </div>
+                <input type="text" class="form-control" placeholder="{{ name }}" aria-label="name" aria-describedby="basic-addon1">
+            </div>
         </div>
     </div>
 </div>

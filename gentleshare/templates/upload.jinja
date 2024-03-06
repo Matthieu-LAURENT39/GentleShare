@@ -7,12 +7,16 @@
 {% block content %}
 {# TODO: Put a better upload form here #}
 <div class="container">
-    <h2>Upload Form</h2>
+    <h2>Téléversement de fichier:</h2>
     <form action="{{url_for('main.upload_file')}}" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="file">Choose file to upload:</label>
-            <input type="file" class="form-control" id="file" name="file">
+            <label for="file">Veuillez choisir le fichier à téléverser:</label>
+            <input type="file" class="form-control" id="file" name="file"><br><br>
+            <label for="description">Description:</label>
+            <textarea  class="form-control description" name="description" rows="4" cols="50">
+            </textarea>
         </div>
+        <br>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 </div>
