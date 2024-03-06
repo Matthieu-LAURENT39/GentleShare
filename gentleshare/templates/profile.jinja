@@ -11,9 +11,21 @@
         <div class="list-group" id="list-tab" role="tablist">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Name</span>
+                    <span class="input-group-text" id="basic-addon1">Nom</span>
                 </div>
-                <input type="text" class="form-control" placeholder="{{ name }}" aria-label="name" aria-describedby="basic-addon1">
+                <input type="text" size="100" class="form-control" placeholder="{{ name }}" aria-label="name" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Prénom</span>
+                </div>
+                <input type="text" size="100" class="form-control" placeholder="{{ first_name }}" aria-label="first_name" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="{{ email }}" aria-label="email" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <span class="input-group-text" size="100" id="basic-addon2">@gmail.com</span>
+                </div>
             </div>
         </div>
     </div>

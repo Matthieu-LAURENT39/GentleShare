@@ -22,7 +22,7 @@ def upload_file() -> str:
             ),
             # TODO: Mettre des vrai valeurs
             title="test",
-            description="test",
+            description= request.form.get("description"),
             education_level=EducationLevel.HIGH,
             subject=Subject.MATHS,
         )
