@@ -6,6 +6,11 @@
 {{ super() }} - Page de profil
 {% endblock %}
 
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row">
@@ -24,11 +29,18 @@
         <div class="col-md">
             <h1> Paramètres </h1>
             <div class="container">
-                <h3>2FA Double authentification {{current_user.username | safe}}</h3>
                 <h3>TOTP</h3>
-                <img src="{{ qrcode(current_user.totp_uri) }}" width="20%" height="20%">
+                <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="40%"
+                    height="40%">
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const totp_qr_code = document.getElementById('totp-qr-code');
+    totp_qr_code.addEventListener('click', () => {
+        totp_qr_code.style.filter = 'none';
+    });
+</script>
 {% endblock content %}

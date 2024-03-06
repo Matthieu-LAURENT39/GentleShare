@@ -1,9 +1,4 @@
-#totp-qr-code {
-    filter: none;
-    transition: filter 0.4s ease-in-out;
-}
-
-#totp-qr-code.blurred {
+.blurred {
     filter: blur(1rem);
-    transition: filter 0.4s ease-in-out;
+    transition: filter 0.5s linear;
 }
