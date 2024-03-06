@@ -1,0 +1,21 @@
+{% extends 'base.jinja' %}
+
+{% block title %}
+{{ super() }} - Page de profil
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <h1> Informations personnelles </h1>
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                </div>
+                <input type="text" class="form-control" placeholder="{{ name }}" aria-label="name" aria-describedby="basic-addon1">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
