@@ -6,5 +6,7 @@ from . import main
 
 @main.route("/")
 def index():
-    file_list: list[File] = File.query.all()
-    return render_template("index.jinja", file_list=file_list)
+    return render_template("acceuil.jinja")
+@main.route("/profile_page")
+def profile_page():
+    return render_template("private_profile.jinja")
