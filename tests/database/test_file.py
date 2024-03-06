@@ -34,7 +34,7 @@ def test_insert_and_favorite_file(app: Flask):
     # Assert that the file fields are correctly set
     assert retrieved_file.title == "My cool file"
     assert retrieved_file.description == "Epic file"
-    assert retrieved_file.owner == user
+    assert retrieved_file.uploader == user
     assert retrieved_file.education_level == EducationLevel.HIGH
     assert retrieved_file.subject == Subject.ENGLISH
 
