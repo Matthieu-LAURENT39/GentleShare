@@ -1,0 +1,4 @@
+.blurred {
+    filter: blur(1rem);
+    transition: filter 0.5s linear;
+}
