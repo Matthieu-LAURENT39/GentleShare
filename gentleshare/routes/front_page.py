@@ -1,5 +1,5 @@
-from flask import render_template
-from flask_login import current_user
+from flask import render_template, flash
+from flask_login import current_user, login_required
 
 from ..database import File, User, Course
 from . import main
@@ -15,19 +15,20 @@ def index():
 
 
 @main.route("/profile", methods=["GET", "POST"])
+@login_required
 def profile():
 
-    form = ProfileForm()
+    form = ProfileForm(obj=current_user)
 
     if form.validate_on_submit():
         displayname = form.display_name.data
         about = form.about.data
 
-        current_user: User = current_user
         current_user.display_name = displayname
         current_user.about_me = about
 
         db.session.add(current_user)
         db.session.commit()
+        flash("Profil mis à jour!", "success")
 
     return render_template("profile.jinja", form=form)
