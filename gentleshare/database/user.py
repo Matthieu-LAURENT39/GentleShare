@@ -34,8 +34,8 @@ class User(db.Model, UserMixin):
     id: Mapped[int] = mapped_column(primary_key=True)
     # collation="NOCASE" means the comparison is case-insensitive
     username: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
+    display_name: Mapped[Optional[str]]
     about_me: Mapped[Optional[str]]
-    display_name: Mapped[str]
     # email: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
     password_hash: Mapped[str]
     """

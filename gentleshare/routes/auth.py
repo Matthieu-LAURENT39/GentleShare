@@ -63,6 +63,7 @@ def register() -> str:
         # If the user already exists
         except IntegrityError:
             db.session.rollback()
+            raise
             flash(f"Username '{escape(username)}' is already taken", "danger")
             return render_template("register.jinja", form=form)
 
