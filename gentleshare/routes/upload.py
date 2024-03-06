@@ -1,13 +1,11 @@
-from flask import render_template, request, redirect, url_for, flash
-from markupsafe import escape
-from flask_login import login_user
-from . import main
-from ..database import User, db, File
 import sqlalchemy_file
-from sqlalchemy.exc import IntegrityError
-from flask_login import login_required, current_user
-from ..classes import EducationLevel, Subject
+from flask import flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 from loguru import logger
+
+from ..classes import EducationLevel, Subject
+from ..database import Course, File, db
+from . import main
 
 
 @main.route("/upload", methods=["GET", "POST"])
@@ -22,7 +20,7 @@ def upload_file() -> str:
             ),
             # TODO: Mettre des vrai valeurs
             title="test",
-            description= request.form.get("description"),
+            description=request.form.get("description"),
             education_level=EducationLevel.HIGH,
             subject=Subject.MATHS,
         )
@@ -34,4 +32,26 @@ def upload_file() -> str:
         flash("Fichier téléversé!", "success")
         return redirect(url_for("main.index"))
 
-    return render_template("upload.jinja")
+    return render_template("file_upload.jinja")
+
+
+@main.route("/create_course", methods=["GET", "POST"])
+@login_required
+def create_course() -> str:
+    # if request.method == "POST":
+    c = Course(
+        owner=current_user,
+        title="title",
+        description="description",
+        education_level=EducationLevel.MIDDLE,
+        subject=Subject.ENGLISH,
+    )
+
+    db.session.add(c)
+    db.session.commit()
+
+    logger.info(f"User {current_user.username} created course '{c.title}' ({c.id})")
+    flash("Cours créé!", "success")
+    return redirect(url_for("main.index"))
+
+    return render_template("course_create.jinja")

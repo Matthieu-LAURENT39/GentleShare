@@ -1,44 +1,25 @@
 {% extends 'base.jinja' %}
-{% from '_macro.jinja' import form_field, file_form_field with context %}
 
 {% block title %}
-{{ super() }} - Upload fichier
+{{ super() }} - Connexion
 {% endblock %}
 
 {% block content %}
-<div class="container mx-auto">
-    <h2 class="text-2xl font-bold">Téléversement de fichier:</h2>
-    <form class="max-w-lg mx-auto" action="{{url_for('main.upload_file')}}" method="POST" enctype="multipart/form-data">
-        {{form.csrf_token}}
-        {{file_form_field(form.file, form)}}
-        {{form_field(form.title, form)}}
-        {{form_field(form.description, form)}}
-        {{form_field(form.education_level, form)}}
-        {{form_field(form.subject, form)}}
-
-        <button type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter</button>
+{# TODO: Put a better upload form here #}
+<div class="container">
+    <h2>Téléversement de fichier:</h2>
+    <form action="{{url_for('main.upload_file')}}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Veuillez choisir le nom du fichier:</label>
+            <input type="text" class="form-control" name="title"><br><br>
+            <label for="file">Veuillez choisir le fichier à téléverser:</label>
+            <input type="file" class="form-control" id="file" name="file"><br><br>
+            <label for="description">Description:</label>
+            <textarea  class="form-control description" name="description" rows="4" cols="50">
+            </textarea>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 </div>
-
-<script>
-    const dropZone = document.getElementById('drop-zone');
-
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('border-blue-500');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('border-blue-500');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('border-blue-500');
-        const files = e.dataTransfer.files;
-        document.getElementById('file').files = files;
-        document.getElementById('filename').value = files[0].name;
-    });
-</script>
-{% endblock %}
+{% endblock content %}
