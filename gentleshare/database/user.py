@@ -13,6 +13,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .user_file_favorite import user_file_favorites
+from pyotp import random_base32
 
 if TYPE_CHECKING:
     from .file import File
@@ -42,8 +43,7 @@ class User(db.Model, UserMixin):
     https://werkzeug.palletsprojects.com/en/1.0.x/utils/#werkzeug.security.generate_password_hash
     """
 
-    # TODO: Add an actual totp token
-    totp_secret: Mapped[str] = mapped_column(default="CHANGEME")
+    totp_secret: Mapped[str] = mapped_column(default=random_base32)
     """
     The secret for the TOTP (Time-based One-Time Password) algorithm
     """
