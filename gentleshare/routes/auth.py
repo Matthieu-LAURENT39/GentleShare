@@ -5,6 +5,7 @@ from . import main
 from ..database import User, db
 from sqlalchemy.exc import IntegrityError
 from loguru import logger
+from ..forms.login import ConnexionForm
 
 
 @main.route("/login", methods=["GET", "POST"])
@@ -97,3 +98,10 @@ def validate_totp() -> str:
         flash("Invalid TOTP code", "danger")
 
     return render_template("totp.jinja")
+
+@main.route('/submit', methods=['GET', 'POST'])
+def submit():
+    form = ConnexionForm()
+    if form.validate_on_submit():
+        return redirect('/success')
+    return render_template('connexion.jinja', form=form)
