@@ -7,7 +7,11 @@
     {% elif field.errors %}
     {% set validation_class = "is-invalid" %}
     {% else %}
-    {% set validation_class = "is-valid" %}
+    {# {% set validation_class = "is-valid" %} #}
+    {# This is in my opinion cleaner, it allows redisplaying a form
+    with adding validation checks.
+    #}
+    {% set validation_class = "" %}
     {% endif %}
 
 
