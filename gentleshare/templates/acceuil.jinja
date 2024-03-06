@@ -1,9 +1,42 @@
 {% extends 'base.jinja' %}
 
 {% block title %}
-{{ super() }} - Accueil
+{{ super() }} - Liste
 {% endblock %}
 
 {% block content %}
-{{lipsum()}}
+<div class="container">
+    <div class="row">
+        <!-- First container -->
+        <div class="col-md-6">
+            <h2 class="text-center">Cours</h2>
+            TODO!
+        </div>
+        <!-- Second container -->
+        <div class="col-md-6">
+            <h2 class="text-center">Fichiers</h2>
+            {% if file_list %}
+            {% for file in file_list %}
+            <div class="card my-2">
+                <div class="card-header">
+                    {{file.education_level.display_name | escape}} - {{file.subject.display_name | escape}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{file.title | escape}} ({{file.stored_file.filename | escape}})</h5>
+                    <p class="card-text">Size: {{file.pretty_file_size}}</p>
+                    <p class="card-text">{{file.description | escape}}</p>
+                    <a href="{{file.file_url}}" class="btn btn-primary">Télécharger</a>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    Posté par {{file.uploader.username | escape}} le {{file.uploaded_at.strftime('%d/%m/%Y %H:%M:%S')}}
+                    UTC
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="fw-lighter fst-italic">Rien pout l'instant.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
