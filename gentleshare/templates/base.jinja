@@ -2,7 +2,7 @@
 {# Use light theme, as it fits better with our color palette #}
 <html lang="fr" data-bs-theme="light">
 
-<head >
+<head>
     {% block head %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,77 +16,75 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    {% endblock %}
 
     {# Custom CSS #}
     <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
-
-    {# Bootstrap JS #}
+    {% endblock head %}
 </head>
 
 
 <body>
     {% block header %}
     <nav class="menu-container">
-    <!-- burger menu -->
-    <input type="checkbox" aria-label="Toggle menu" />
-    <span></span>
-    <span></span>
-    <span></span>
+        <!-- burger menu -->
+        <input type="checkbox" aria-label="Toggle menu" />
+        <span></span>
+        <span></span>
+        <span></span>
 
-    <!-- logo -->
-    <a href="{{url_for('main.index')}}" class="menu-logo">
-        <img src="{{url_for('static', filename='logo.png')}}" alt="GentleShare"/>
-    </a>
+        <!-- logo -->
+        <a href="{{url_for('main.index')}}" class="menu-logo">
+            <img src="{{url_for('static', filename='logo.png')}}" alt="GentleShare" />
+        </a>
 
-    <!-- menu items -->
-    <div class="menu">
-        <ul>
-        <li>
-            <a href="#file">
-            Mes fichiers
-            </a>
-        </li>
-        <li>
-            <a href="#courses">
-            Mes cours
-            </a>
-        </li>
-        </ul>
-        <ul>
-        {% if not current_user.is_authenticated %}
-        <li>
-            <a href="{{url_for('main.register')}}">
-            Inscription
-            </a>
-        </li>
-        <li>
-            <a href="{{url_for('main.login')}}">
-            Se connecter
-            </a>
-        </li>
-        {% else %}
-        <li>
-            <a href="{{url_for('main.upload_file')}}" target="_blank" rel="noopener noreferrer">
-            Upload
-            </a>
-        </li>
-        <li>
-            <a href="{{url_for('main.logout')}}">
-            Déconnexion
-            </a>
-        </li>
-        <li>
-            <a href="{{url_for('main.profile')}}">
-                <img src="{{url_for('static', filename='user.png')}}" alt="GentleShare" class="reduce-img"/>
-            </a>
-        </li>
-        {% endif %}
-        </ul>
-        
-    </div>
+        <!-- menu items -->
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="#file">
+                        Mes fichiers
+                    </a>
+                </li>
+                <li>
+                    <a href="#courses">
+                        Mes cours
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                {% if not current_user.is_authenticated %}
+                <li>
+                    <a href="{{url_for('main.register')}}">
+                        Inscription
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.login')}}">
+                        Se connecter
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{url_for('main.upload_file')}}" target="_blank" rel="noopener noreferrer">
+                        Upload
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.logout')}}">
+                        Déconnexion
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.profile')}}">
+                        <img src="{{url_for('static', filename='user.png')}}" alt="GentleShare" class="reduce-img" />
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+
+        </div>
     </nav>
-    
+
     {% endblock header %}
 
     {% block flashed_messages %}
@@ -109,7 +107,7 @@
 
 
     {% block footer%}
-    <footer class="footer py-3 bg-light bottom" >
+    <footer class="footer py-3 bg-light bottom">
         <div class="container text-center">
             <span class="text-muted">© 2024 GentleShare. All rights reserved.</span>
         </div>
