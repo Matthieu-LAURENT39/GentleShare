@@ -1,31 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms import StringField
+from wtforms.validators import DataRequired, EqualTo
 
 
 class RegisterForm(FlaskForm):
-    username = StringField(
-        "Nom d'utilisateur",
-        validators=[
-            DataRequired(),
-            Length(
-                min=4,
-                max=25,
-                message="Le nom d'utilisateur doit faire entre %(min)d et %(max)d caractères",
-            ),
-        ],
-    )
-    password = PasswordField(
-        "Mot de passe",
-        validators=[
-            DataRequired(),
-            Length(
-                max=100,
-                message="Le mot de passe doit faire entre %(min)d et %(max)d caractères",
-            ),
-        ],
-    )
-    password_confirm = PasswordField(
-        "Confirmation du mot de passe",
-        validators=[DataRequired(), EqualTo("password", "Passwords must match")],
+    username = StringField("username", validators=[DataRequired()])
+    password = StringField("password", validators=[DataRequired()])
+    verify_password = StringField(
+        "verify_password", validators=[DataRequired(), EqualTo("password")]
     )
