@@ -65,9 +65,10 @@
                 </li>
                 {% else %}
                 <li>
-                    <a href="{{url_for('main.upload_file')}}" target="_blank" rel="noopener noreferrer">
-                        Upload
-                    </a>
+                    <a href="{{url_for('main.upload_file')}}" rel="noopener noreferrer">Upload fichier</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.create_course')}}" rel="noopener noreferrer">Créer un cours</a>
                 </li>
                 <li>
                     <a href="{{url_for('main.logout')}}">

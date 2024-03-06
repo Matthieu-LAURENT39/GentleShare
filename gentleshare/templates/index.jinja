@@ -14,7 +14,25 @@
         <!-- First container -->
         <div class="col-md-6">
             <h2 class="text-center">Cours</h2>
-            TODO!
+            {% if course_list %}
+            {% for course in course_list %}
+            <div class="card my-2" data-title="{{course.title | escape}}"
+                data-description="{{course.description | escape}}">
+                <div class="card-header">
+                    {{course.education_level.display_name | escape}} - {{course.subject.display_name | escape}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{course.title | escape}}</h5>
+                    <p class="card-text">{{course.description | escape}}</p>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    Posté par {{course.owner.username | escape}}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="fw-lighter fst-italic">Rien pout l'instant.</p>
+            {% endif %}
         </div>
         <!-- Second container -->
         <div class="col-md-6">
