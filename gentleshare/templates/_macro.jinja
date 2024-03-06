@@ -1,44 +1,7 @@
-{% macro form_field(field, form) -%}
-<div class="mb-4">
-    {{ field.label(class_="block mb-2 text-sm font-medium text-gray-900 dark:text-white") }}
-    {{ field(class_="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500
-    focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-    dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light", **kwargs) }}
-
-    {% if field.errors %}
-    <ul class="mt-1 list-disc list-inside text-sm text-red-600 dark:text-red-400">
-        {% for error in field.errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
-{%- endmacro %}
-
-{% macro file_form_field(field, form) -%}
-<div class="mb-4">
-    {{ field.label(class_="block mb-2 text-sm font-medium text-gray-900 dark:text-white") }}
-    <input type="file" class="hidden" id="{{form.file.id}}" name="{{form.file.name}}" />
-    <label for="file" class="cursor-pointer">
-        <div class="border border-dashed border-gray-300 rounded-lg p-4" id="drop-zone">
-            <div class="flex justify-center items-center">
-                <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg>
-                <span class="text-sm">Glissez-déposez vos fichiers ici ou <span
-                        class="text-blue-600 hover:underline">sélectionnez un fichier</span></span>
-            </div>
-        </div>
-    </label>
-
-    {% if field.errors %}
-    <ul class="mt-1 list-disc list-inside text-sm text-red-600 dark:text-red-400">
-        {% for error in field.errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+{% macro form_field(field) -%}
+<div class="form-group">
+    {# <label id="{{field.label.field_id}}" for="{{field.name}}">{{field.label.text}}</label> #}
+    {{ field.label }}
+    {{ field(class_="form-control") }}
 </div>
 {%- endmacro %}

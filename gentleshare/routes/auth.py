@@ -5,7 +5,7 @@ from . import main
 from ..database import User, db
 from sqlalchemy.exc import IntegrityError
 from loguru import logger
-from ..forms.login import ConnexionForm
+from ..forms import LoginForm
 
 
 @main.route("/login", methods=["GET", "POST"])
@@ -15,9 +15,11 @@ def login() -> str:
         flash("You are already logged in", "warning")
         return redirect(url_for("main.index"))
 
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
 
         user: User = User.query.filter_by(username=username).first()
 
@@ -34,7 +36,7 @@ def login() -> str:
         logger.info(f"Failed login attempt for user '{username}'")
         flash("Invalid username or password", "danger")
 
-    return render_template("login.jinja")
+    return render_template("login.jinja", form=form)
 
 
 @main.route("/register", methods=["GET", "POST"])
@@ -99,9 +101,10 @@ def validate_totp() -> str:
 
     return render_template("totp.jinja")
 
-@main.route('/connexion', methods=['GET', 'POST'])
+
+@main.route("/connexion", methods=["GET", "POST"])
 def connexion():
-    form = ConnexionForm()
+    form = LoginForm()
     if form.validate_on_submit():
-        return redirect('/success')
-    return render_template('connexion.jinja', form=form)
+        return redirect("/success")
+    return render_template("connexion.jinja", form=form)
