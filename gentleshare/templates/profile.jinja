@@ -1,7 +1,6 @@
 {% extends 'base.jinja' %}
 {% from '_macro.jinja' import form_field with context %}
 
-
 {% block title %}
 {{ super() }} - Page de profil
 {% endblock %}
@@ -12,28 +11,28 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
+<div class="container mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        <div class="col-md">
-            <h1> Informations personnelles </h1>
-            <form action="{{url_for('main.profile')}}" method="POST">
+        <div class="md:col-span-2"> <!-- Utilisation de md:col-span-2 pour occuper 2 colonnes sur les écrans de taille moyenne et plus grands -->
+            <h1 class="text-xl font-semibold">Informations personnelles</h1>
+            <form action="{{url_for('main.profile')}}" method="POST" class="mt-4">
                 {{form_field(form.display_name, form)}}
+                <br>
+                {{form_field(form.display_first_name, form)}}
+                <br>
+                {{form_field(form.display_email, form)}}
                 <br>
                 {{form_field(form.about_me, form)}}
                 <br>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
             </form>
         </div>
-
-        <div class="col-md-1 border-end me-5"></div>
-
-        <div class="col-md">
-            <h1> Paramètres </h1>
-            <div class="container">
-                <h3>TOTP</h3>
-                <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="40%"
-                    height="40%">
+        <div class="md:col-span-1"> <!-- Utilisation de md:col-span-1 pour occuper 1 colonne sur les écrans de taille moyenne et plus grands -->
+            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"> Double Authentification </h1>
+            <div>
+                <h3 class="text-lg font-semibold">TOTP</h3>
+                <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="40%" height="40%">
             </div>
         </div>
 

@@ -5,59 +5,57 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mx-auto">
     <div class="mb-3">
-        <label for="search-bar" class="form-label">Recherche</label>
-        <input type="text" class="form-control" id="search-bar">
+        <label for="search-bar" class="block text-sm font-medium text-gray-700">Recherche</label>
+        <input type="text" class="mt-1 p-2 border border-gray-300 rounded-md w-full" id="search-bar">
     </div>
-    <div class="row">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- First container -->
-        <div class="col-md-6">
-            <h2 class="text-center">Cours</h2>
+        <div>
+            <h2 class="text-center text-lg font-semibold">Cours</h2>
             {% if course_list %}
             {% for course in course_list %}
-            <div class="card my-2" data-title="{{course.title | escape}}"
-                data-description="{{course.description | escape}}">
-                <div class="card-header">
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <div class="text-gray-600">
                     {{course.education_level.display_name | escape}} - {{course.subject.display_name | escape}}
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{course.title | escape}}</h5>
-                    <p class="card-text">{{course.description | escape}}</p>
+                <div class="mt-2">
+                    <h3 class="text-xl font-semibold">{{course.title | escape}}</h3>
+                    <p class="mt-2 text-gray-600">{{course.description | escape}}</p>
                 </div>
-                <div class="card-footer text-body-secondary">
+                <div class="mt-4 text-sm text-gray-500">
                     Posté par {{course.owner.username | escape}}
                 </div>
             </div>
             {% endfor %}
             {% else %}
-            <p class="fw-lighter fst-italic">Rien pout l'instant.</p>
+            <p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p>
             {% endif %}
         </div>
         <!-- Second container -->
-        <div class="col-md-6">
-            <h2 class="text-center">Fichiers</h2>
+        <div>
+            <h2 class="text-center text-lg font-semibold">Fichiers</h2>
             {% if file_list %}
             {% for file in file_list %}
-            <div class="card my-2" data-title="{{file.title | escape}}" data-description="{{file.description | escape}}"
-                data-order="{{file.uploaded_at.timestamp()}}">
-                <div class="card-header">
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <div class="text-gray-600">
                     {{file.education_level.display_name | escape}} - {{file.subject.display_name | escape}}
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{file.title | escape}} ({{file.stored_file.filename | escape}})</h5>
-                    <p class="card-text">Size: {{file.pretty_file_size}}</p>
-                    <p class="card-text">{{file.description | escape}}</p>
-                    <a href="{{file.file_url}}" class="btn btn-primary">Télécharger</a>
+                <div class="mt-2">
+                    <h3 class="text-xl font-semibold">{{file.title | escape}} ({{file.stored_file.filename | escape}})</h3>
+                    <p class="mt-2 text-gray-600">Size: {{file.pretty_file_size}}</p>
+                    <p class="mt-2 text-gray-600">{{file.description | escape}}</p>
+                    <a href="{{file.file_url}}" class="mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded">Télécharger</a>
                 </div>
-                <div class="card-footer text-body-secondary">
+                <div class="mt-4 text-sm text-gray-500">
                     Posté par {{file.uploader.username | escape}} le {{file.uploaded_at.strftime('%d/%m/%Y %H:%M:%S')}}
                     UTC
                 </div>
             </div>
             {% endfor %}
             {% else %}
-            <p class="fw-lighter fst-italic">Rien pout l'instant.</p>
+            <p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p>
             {% endif %}
         </div>
     </div>
