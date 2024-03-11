@@ -1,0 +1,34 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    width: calc(100% * 12); /* Exemple pour 12 images, ajustez selon votre nombre d'images */
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    width: calc(100% / 12); /* Comme ci-dessus */
+    flex-shrink: 0;
+}
+
+.carousel-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+#prevBtn, #nextBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#prevBtn { left: 10px; }
+#nextBtn { right: 10px; }

@@ -1,5 +1,15 @@
 {% extends 'base.jinja' %}
 
+{% block head %}
+{{ super() }}
+{# Custom CSS #}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+
+{# Custom JS#}
+<script src="{{url_for('static', filename='js/index.js')}}"></script>
+{% endblock %}
+
+
 {% block title %}
 {{ super() }} - Liste
 {% endblock %}
@@ -10,29 +20,33 @@
         <label for="search-bar" class="block text-sm font-medium text-gray-700">Recherche</label>
         <input type="text" class="mt-1 p-2 border border-gray-300 rounded-md w-full" id="search-bar">
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- First container -->
-        <div>
-            <h2 class="text-center text-lg font-semibold">Cours</h2>
-            {% if course_list %}
-            {% for course in course_list %}
-            <div class="bg-white shadow-md rounded-lg p-4">
-                <div class="text-gray-600">
-                    {{course.education_level.display_name | escape}} - {{course.subject.display_name | escape}}
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-xl font-semibold">{{course.title | escape}}</h3>
-                    <p class="mt-2 text-gray-600">{{course.description | escape}}</p>
-                </div>
-                <div class="mt-4 text-sm text-gray-500">
-                    Posté par {{course.owner.username | escape}}
-                </div>
+    <div class="carousel">
+    <div class="carousel-inner" id="carouselInner">
+        {% if course_list %}
+        {% for course in course_list %}
+        <div class="carousel-item bg-white shadow-md rounded-lg p-4">
+            <div class="text-gray-600">
+                {{ course.education_level.display_name | escape }} - {{ course.subject.display_name | escape }}
             </div>
-            {% endfor %}
-            {% else %}
-            <p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p>
-            {% endif %}
+            <div class="mt-2">
+                <h3 class="text-xl font-semibold">{{ course.title | escape }}</h3>
+                <p class="mt-2 text-gray-600">{{ course.description | escape }}</p>
+            </div>
+            <div class="mt-4 text-sm text-gray-500">
+                Posté par {{ course.owner.username | escape }}
+            </div>
         </div>
+        {% endfor %}
+        {% else %}
+        <div class="carousel-item">
+            <p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p>
+        </div>
+        {% endif %}
+    </div>
+    <button id="prevBtn">Précédent</button>
+    <button id="nextBtn">Suivant</button>
+    </div>
+
         <!-- Second container -->
         <div>
             <h2 class="text-center text-lg font-semibold">Fichiers</h2>
