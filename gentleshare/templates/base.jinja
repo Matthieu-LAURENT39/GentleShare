@@ -10,12 +10,8 @@
     {# Logo #}
     <link rel="icon" href="{{url_for('static', filename='logo.png')}}">
 
-    {# Bootstrap CSS #}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    {# Tailwind CSS #}
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
     {# Custom CSS #}
     <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
@@ -25,7 +21,7 @@
 
 <body>
     {% block header %}
-    <nav class="menu-container">
+    <nav class="menu-container flex justify-between items-center">
         <!-- burger menu -->
         <input type="checkbox" aria-label="Toggle menu" />
         <span></span>
@@ -39,44 +35,44 @@
 
         <!-- menu items -->
         <div class="menu">
-            <ul>
+            <ul class="flex space-x-4">
                 <li>
-                    <a href="#file">
+                    <a href="{{url_for('main.myfiles')}}" class="text-blue-500">
                         Mes fichiers
                     </a>
                 </li>
                 <li>
-                    <a href="#courses">
+                    <a href="#courses" class="text-blue-500">
                         Mes cours
                     </a>
                 </li>
             </ul>
-            <ul>
+            <ul class="flex space-x-4">
                 {% if not current_user.is_authenticated %}
                 <li>
-                    <a href="{{url_for('main.register')}}">
+                    <a href="{{url_for('main.register')}}" class="text-blue-500">
                         Inscription
                     </a>
                 </li>
                 <li>
-                    <a href="{{url_for('main.login')}}">
+                    <a href="{{url_for('main.login')}}" class="text-blue-500">
                         Se connecter
                     </a>
                 </li>
                 {% else %}
                 <li>
-                    <a href="{{url_for('main.upload_file')}}" rel="noopener noreferrer">Upload fichier</a>
+                    <a href="{{url_for('main.upload_file')}}" rel="noopener noreferrer" class="text-blue-500">Upload fichier</a>
                 </li>
                 <li>
-                    <a href="{{url_for('main.create_course')}}" rel="noopener noreferrer">Créer un cours</a>
+                    <a href="{{url_for('main.create_course')}}" rel="noopener noreferrer" class="text-blue-500">Créer un cours</a>
                 </li>
                 <li>
-                    <a href="{{url_for('main.logout')}}">
+                    <a href="{{url_for('main.logout')}}" class="text-blue-500">
                         Déconnexion
                     </a>
                 </li>
                 <li>
-                    <a href="{{url_for('main.profile')}}">
+                    <a href="{{url_for('main.profile')}}" class="text-blue-500">
                         <img src="{{url_for('static', filename='user.png')}}" alt="GentleShare" class="reduce-img" />
                     </a>
                 </li>
@@ -93,7 +89,7 @@
     {% if messages %}
     <div id="flashed-messages-container" class="container">
         {% for category, message in messages %}
-        <div class="alert alert-{{category}} mb-2" role="alert">
+        <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-2" role="alert">
             {{message}}
         </div>
         {% endfor %}
@@ -102,14 +98,14 @@
     {% endwith %}
     {% endblock flashed_messages %}
 
-    <main class="container pt-5 pb-3" style="min-height: 80vh;">
+    <main class="container mx-auto pt-5 pb-3 min-h-screen">
         {% block content required %}{% endblock content %}
     </main>
 
 
     {% block footer%}
     <footer class="footer py-3 bg-light bottom">
-        <div class="container text-center">
+        <div class="container text-center mx-auto">
             <span class="text-muted">© 2024 GentleShare. All rights reserved.</span>
         </div>
     </footer>
