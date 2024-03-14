@@ -5,35 +5,37 @@ from loguru import logger
 
 from ..classes import EducationLevel, Subject
 from ..database import Course, File, db
-from ..forms import AddCourseForm
+from ..forms import AddCourseForm, AddFileForm
 from . import main
 
 
 @main.route("/upload", methods=["GET", "POST"])
 @login_required
 def upload_file() -> str:
-    if request.method == "POST":
-        uploaded_file = request.files["file"]
+    form = AddFileForm()
+
+    if form.validate_on_submit():
         f = File(
             uploader=current_user,
             file_info=sqlalchemy_file.File(
-                content=uploaded_file.stream, filename=uploaded_file.filename
+                content=form.file.data.stream, filename=form.file.data.filename
             ),
-            # TODO: Mettre des vrai valeurs
-            title="test",
-            description=request.form.get("description"),
-            education_level=EducationLevel.HIGH,
-            subject=Subject.MATHS,
+            title=form.title.data,
+            description=form.description.data,
+            education_level=EducationLevel[form.education_level.data],
+            subject=Subject[form.subject.data],
         )
+
         db.session.add(f)
         db.session.commit()
+
         logger.info(
             f"User {current_user.username} uploaded file '{f.title}' ({f.file_info['file_id']})"
         )
         flash("Fichier téléversé!", "success")
         return redirect(url_for("main.index"))
 
-    return render_template("file_upload.jinja")
+    return render_template("file_upload.jinja", form=form)
 
 
 @main.route("/create_course", methods=["GET", "POST"])
