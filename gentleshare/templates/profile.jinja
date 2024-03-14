@@ -13,14 +13,63 @@
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Modifier mon profil</a>
     {% endif %}
 
-    <h2 class="text-3xl font-bold text-center my-4">Fichiers de {{user.username}}</h2>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        {{ file_table(user.uploaded_files)}}
-    </div>
+    <div class="my-6">
+        <div class="border-b border-gray-200">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="tab-list">
+                <li class="mr-2">
+                    <button
+                        class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300"
+                        data-tab-target="#files">Fichiers</button>
+                </li>
+                <li class="mr-2">
+                    <button
+                        class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300"
+                        data-tab-target="#courses">Cours</button>
+                </li>
+            </ul>
+        </div>
 
-    <h2 class="text-3xl font-bold text-center my-4">Cours de {{user.username}}</h2>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        {{ course_table(user.owned_courses)}}
+        <div id="tabs-content">
+            <div id="files" class="tab-content active pt-4">
+                {# <h2 class="text-3xl font-bold text-center mb-4">Fichiers de {{user.username}}</h2> #}
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    {{ file_table(user.uploaded_files) }}
+                </div>
+            </div>
+
+            <div id="courses" class="tab-content hidden pt-4">
+                {# <h2 class="text-3xl font-bold text-center mb-4">Cours de {{user.username}}</h2> #}
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    {{ course_table(user.owned_courses) }}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = document.querySelector(tab.dataset.tabTarget);
+            tabContents.forEach(tc => {
+                tc.classList.remove('active');
+                tc.classList.add('hidden');
+            });
+            tabs.forEach(t => {
+                t.classList.remove('text-blue-600');
+                t.classList.add('text-gray-600');
+            });
+            tab.classList.remove('text-gray-600');
+            tab.classList.add('text-blue-600');
+            target.classList.add('active');
+            target.classList.remove('hidden');
+        });
+    });
+
+    // Open the first tab by default
+    tabs[0].click();
+</script>
 {% endblock %}
