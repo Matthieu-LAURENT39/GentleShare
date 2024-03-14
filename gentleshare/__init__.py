@@ -10,6 +10,7 @@ from flask_qrcode import QRcode
 from libcloud.storage.drivers.local import LocalStorageDriver, StorageDriver
 from loguru import logger
 
+from . import filters
 from .classes import setup_storage_manager
 from .database import User, db
 from .flask_config import Config
@@ -75,6 +76,9 @@ def create_app(config: object | Callable = Config) -> Flask:
 
     with app.app_context():
         db.create_all()
+
+    # Register the filters
+    app.jinja_env.filters["markdown"] = filters.markdown_filter
 
     # Register the blueprints
     from .routes import main
