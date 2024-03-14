@@ -1,56 +1,44 @@
 {% extends 'base.jinja' %}
-{% from '_macro.jinja' import form_field with context %}
+{% from '_macro.jinja' import form_field, file_form_field with context %}
 
 {% block title %}
-{{ super() }} - Page de profil
-{% endblock %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
+{{ super() }} - Profil de {user.username}
 {% endblock %}
 
 {% block content %}
 <div class="container mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <h2 class="text-2xl font-bold">Téléversement de fichier:</h2>
+    <form class="max-w-lg mx-auto" action="{{url_for('main.upload_file')}}" method="POST" enctype="multipart/form-data">
+        {{form.csrf_token}}
+        {{file_form_field(form.file, form)}}
+        {{form_field(form.title, form)}}
+        {{form_field(form.description, form)}}
+        {{form_field(form.education_level, form)}}
+        {{form_field(form.subject, form)}}
 
-        <!-- Colonne de gauche -->
-        <div class="md:pl-4">
-            <div>
-                <h1 class="text-xl font-semibold mb-4">Informations personnelles</h1>
-                <form action="{{url_for('main.profile')}}" method="POST">
-                    {{ form.csrf_token }}
-                    {{ form_field(form.display_name, form) }}
-                    {{ form_field(form.email, form) }}
-                    {{ form_field(form.about_me, form) }}
-                    {{ form_field(form.phone_number, form) }}
-                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Colonne de droite -->
-        <div class="md:pr-8 mt-4"> {# Ajout de la classe md:pr-8 pour décaler la partie "Double Authentification" et
-            tout ce qui suit vers la droite de 8 unités uniquement sur les écrans md et plus grands #}
-            <h1
-                class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                Double Authentification</h1>
-            <div class="flex flex-row justify-end">
-                <div>
-                    <h3 class="text-lg font-semibold">TOTP</h3>
-                    <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="60%"
-                        height="60%">
-                </div>
-            </div>
-        </div>
-
-    </div>
+        <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter</button>
+    </form>
 </div>
 
 <script>
-    const totp_qr_code = document.getElementById('totp-qr-code');
-    totp_qr_code.addEventListener('click', () => {
-        totp_qr_code.classList.toggle("blurred");
+    const dropZone = document.getElementById('drop-zone');
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blue-500');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-blue-500');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blue-500');
+        const files = e.dataTransfer.files;
+        document.getElementById('file').files = files;
+        document.getElementById('filename').value = files[0].name;
     });
 </script>
-{% endblock content %}
+{% endblock %}
