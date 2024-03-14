@@ -4,9 +4,6 @@ from wtforms.validators import DataRequired, EqualTo
 
 
 class RegisterForm(FlaskForm):
-    username = StringField("username", validators=[DataRequired()])
-    password = PasswordField("password", validators=[DataRequired()])
-    password_confirm = PasswordField(
-        "Password confirmation",
-        validators=[DataRequired(), EqualTo("password", "Passwords must match")],
-    )
+    username = StringField("Nom d'utilisateur", validators=[DataRequired()])
+    password = PasswordField("Mot de passe", validators=[DataRequired()])
+    password_confirm = PasswordField("Confirmation du mot de passe", validators=[DataRequired(), EqualTo("password", "Passwords must match")])

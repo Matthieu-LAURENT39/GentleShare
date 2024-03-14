@@ -37,10 +37,12 @@
             <path
                 d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
         </svg>
-        <p id="numero" style="color: black;" class="hidden">Test</p>
+        <p class="numero hidden" style="color: black;">{{ course.phone_number }}</p>
     </a>
 </div>
 {% endfor %}
+
+
 
 <div class="grid-container">
     {% if file_list %}
@@ -93,6 +95,8 @@
 
     svgTelephone.addEventListener('mouseenter', vibrate);
     svgTelephone.addEventListener('mouseleave', stopVibrate);
+
+    svgTelephone.classList.remove('animate-vibrate');
 
     const search_bar = document.getElementById('search-bar');
     const searchables = document.querySelectorAll('[data-title]');
