@@ -31,15 +31,16 @@
         </div>
 
         <!-- Colonne de droite -->
-        <div class="md:pr-4 mt-4"> {# Ajout de la classe md:pr-4 pour décaler la partie "Double Authentification" et
-            tout ce qui suit vers la droite uniquement sur les écrans md et plus grands #}
-            <h1
-                class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <div class="md:pr-8 mt-4"> {# Ajout de la classe md:pr-8 pour décaler la partie "Double Authentification" et tout ce qui suit vers la droite de 8 unités uniquement sur les écrans md et plus grands #}
+            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                 Double Authentification</h1>
-            <div>
-                <h3 class="text-lg font-semibold">TOTP</h3>
-                <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="40%"
-                    height="40%">
+            <div class="flex flex-row justify-end">
+                <div>
+                    <h3 class="text-lg font-semibold">TOTP</h3>
+                    <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="60%"
+                        height="60%">
+                </div>
+                <!-- Ajoutez ici les éléments que vous souhaitez aligner à droite -->
             </div>
         </div>
 
