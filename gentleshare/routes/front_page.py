@@ -32,3 +32,12 @@ def settings():
         flash("Profil mis à jour!", FlashCategory.SUCCESS)
 
     return render_template("settings.jinja", form=form)
+
+
+@main.route("/profile/<username>")
+def profile(username: str):
+    user: User = User.query.filter_by(username=username).first()
+    if user is None:
+        flash("Cet utilisateur n'existe pas", FlashCategory.ERROR)
+        return render_template("index.jinja")
+    return render_template("profile.jinja", user=user)
