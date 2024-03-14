@@ -13,9 +13,19 @@ class Subject(Enum):
     BIOLOGY = "biology"
     HISTORY = "history"
     GEOGRAPHY = "geography"
-    ECONOMICS = "economics"
     ECONOMY = "economy"
 
     @property
     def display_name(self) -> str:
-        return self.value.capitalize()
+        return {
+            Subject.MATHS: "Maths",
+            Subject.FRENCH: "Français",
+            Subject.SPANISH: "Espagnol",
+            Subject.ENGLISH: "Anglais",
+            Subject.PHYSICS: "Physique",
+            Subject.CHEMISTRY: "Chimie",
+            Subject.BIOLOGY: "Biologie",
+            Subject.HISTORY: "Histoire",
+            Subject.GEOGRAPHY: "Géographie",
+            Subject.ECONOMY: "Économie",
+        }[self]
