@@ -52,9 +52,7 @@
                 </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
-
-                    Actions
-
+                    Contact
                 </th>
             </tr>
         </thead>
@@ -75,13 +73,12 @@
                     {{ course.description | escape }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ course.owner_id }}
+                    <!-- TODO: Ajouter la propriété de l'utilisateur -->
+                    {{ 'TODO' }}
                 </td>
-                <td class="px-6 py-4 text-right">
-                    <!-- Ajoutez ici les actions comme la visualisation, l'édition ou la suppression du cours -->
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Voir</a>
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
-                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
+                <td class="px-6 py-4">
+                    <!-- TODO: Ajouter le contact du propriétaire -->
+                    {{ 'TODO' }}
                 </td>
             </tr>
             {% endfor %}
@@ -106,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (dataType === 'size') { // Pour la colonne de taille, convertir la chaîne de caractères en nombre
             const parseSize = (str) => parseFloat(str.replace(/[^\d.]/g, ''));
             v1 = parseSize(getCellValue(asc ? a : b, idx));
-            v2 = parseSize(parseSize(getCellValue(asc ? b : a, idx)));
+            v2 = parseSize(getCellValue(asc ? b : a, idx));
             return v1 - v2;
         } else { // Pour les autres colonnes, effectuer un tri de chaînes
             v1 = getCellValue(asc ? a : b, idx);
@@ -128,6 +125,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
 
 {% endblock content %}
