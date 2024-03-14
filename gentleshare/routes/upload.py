@@ -15,6 +15,11 @@ def upload_file() -> str:
     form = AddFileForm()
 
     if form.validate_on_submit():
+        # Users can have a max of 250 files
+        if len(current_user.uploaded_files) >= 250:
+            flash("Vous avez atteint la limite de 250 fichiers", FlashCategory.ERROR)
+            return redirect(url_for("main.index"))
+
         f = File(
             uploader=current_user,
             file_info=sqlalchemy_file.File(

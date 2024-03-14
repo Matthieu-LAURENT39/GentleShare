@@ -22,6 +22,10 @@ dependencies = [
     "pyotp~=2.9",
     "Flask-QRcode~=3.1",
     "flask-wtf~=1.2",
+    "markdown~=3.6",
+    "beautifulsoup4~=4.12",
+    "markdown-mark~=0.0",
+    "pymdown-extensions~=10.7",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"

@@ -90,7 +90,7 @@
                     {{ file.subject.display_name | escape }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ file.description | escape }}
+                    {{ file.description | escape | markdown }}
                 </td>
                 <td class="px-6 py-4">
                     {{ file.pretty_file_size }}
