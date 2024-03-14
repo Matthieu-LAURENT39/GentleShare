@@ -69,9 +69,10 @@
                     </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
-
                     Télécharger
-
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Favoris
                 </th>
             </tr>
         </thead>
@@ -97,6 +98,25 @@
                 <td class="px-6 py-4 text-right">
                     <a href="{{ file.file_url }}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Télécharger</a>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    {% if file.is_favorite %}
+                        <a href="{{ url_for('main.addtofav', file_id=file.id)}}"
+                            class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd"
+                                    d="M10 3.655l1.225 2.47 2.742.398-1.985 1.932.47 2.734-2.47-1.297-2.47 1.297.47-2.734L5.033 7.523l2.742-.398L10 3.655zM10 14.854l-3.54 1.85.675-3.93-2.864-2.805 3.957-.575L10 6.275l1.772 3.534 3.957.575-2.864 2.805.675 3.93L10 14.854z" />
+                            </svg>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('main.addtofav', file_id=file.id)}}"
+                            class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-gray-400">
+                                <path fill-rule="evenodd"
+                                    d="M10 3.655l1.225 2.47 2.742.398-1.985 1.932.47 2.734-2.47-1.297-2.47 1.297.47-2.734L5.033 7.523l2.742-.398L10 3.655zM10 14.854l-3.54 1.85.675-3.93-2.864-2.805 3.957-.575L10 6.275l1.772 3.534 3.957.575-2.864 2.805.675 3.93L10 14.854z" />
+                            </svg>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
