@@ -6,13 +6,14 @@ from ..database import User, db
 from sqlalchemy.exc import IntegrityError
 from loguru import logger
 from ..forms import LoginForm, RegisterForm
+from ..classes import FlashCategory
 
 
 @main.route("/login", methods=["GET", "POST"])
 def login() -> str:
     """Login route"""
     if current_user.is_authenticated:
-        flash("You are already logged in", "warning")
+        flash("You are already logged in", FlashCategory.WARNING)
         return redirect(url_for("main.index"))
 
     form = LoginForm()
@@ -34,7 +35,7 @@ def login() -> str:
             return redirect(url_for("main.index"))
 
         logger.info(f"Failed login attempt for user '{username}'")
-        flash("Invalid username or password", "danger")
+        flash("Invalid username or password", FlashCategory.ERROR)
 
     return render_template("login.jinja", form=form)
 
@@ -43,7 +44,7 @@ def login() -> str:
 def register() -> str:
     """Register route"""
     if current_user.is_authenticated:
-        flash("You are already logged in", "warning")
+        flash("You are already logged in", FlashCategory.WARNING)
         return redirect(url_for("main.index"))
 
     form = RegisterForm()
@@ -63,7 +64,9 @@ def register() -> str:
         # If the user already exists
         except IntegrityError:
             db.session.rollback()
-            flash(f"Username '{escape(username)}' is already taken", "danger")
+            flash(
+                f"Username '{escape(username)}' is already taken", FlashCategory.ERROR
+            )
             return render_template("register.jinja", form=form)
 
         login_user(user)
@@ -77,9 +80,9 @@ def register() -> str:
 def logout() -> str:
     if current_user.is_authenticated:
         logout_user()
-        flash("You have been logged out", "success")
+        flash("You have been logged out", FlashCategory.SUCCESS)
     else:
-        flash("You can't log out without being logged in", "warning")
+        flash("You can't log out without being logged in", FlashCategory.WARNING)
     return redirect(url_for("main.index"))
 
 
@@ -100,6 +103,6 @@ def validate_totp() -> str:
             session.pop("awaiting_totp")
             return redirect(url_for("main.index"))
 
-        flash("Invalid TOTP code", "danger")
+        flash("Invalid TOTP code", FlashCategory.ERROR)
 
     return render_template("totp.jinja")

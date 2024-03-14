@@ -24,9 +24,6 @@
     <nav class="menu-container flex justify-between items-center">
         <!-- burger menu -->
         <input type="checkbox" aria-label="Toggle menu" />
-        <span></span>
-        <span></span>
-        <span></span>
 
         <!-- logo -->
         <a href="{{url_for('main.index')}}" class="menu-logo">
@@ -61,10 +58,12 @@
                 </li>
                 {% else %}
                 <li>
-                    <a href="{{url_for('main.upload_file')}}" rel="noopener noreferrer" class="text-blue-500">Upload fichier</a>
+                    <a href="{{url_for('main.upload_file')}}" rel="noopener noreferrer" class="text-blue-500">Upload
+                        fichier</a>
                 </li>
                 <li>
-                    <a href="{{url_for('main.create_course')}}" rel="noopener noreferrer" class="text-blue-500">Créer un cours</a>
+                    <a href="{{url_for('main.create_course')}}" rel="noopener noreferrer" class="text-blue-500">Créer un
+                        cours</a>
                 </li>
                 <li>
                     <a href="{{url_for('main.logout')}}" class="text-blue-500">
@@ -87,9 +86,10 @@
     {% block flashed_messages %}
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-    <div id="flashed-messages-container" class="container">
+    <div id="flashed-messages-container" class="flex flex-col items-center">
         {% for category, message in messages %}
-        <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-2" role="alert">
+        <div class="md:w-4/5 bg-{{category}}-100 border-l-4 border-{{category}}-500 text-{{category}}-700 p-4"
+            role="alert">
             {{message}}
         </div>
         {% endfor %}

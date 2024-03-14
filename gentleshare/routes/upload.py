@@ -3,7 +3,7 @@ from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from loguru import logger
 
-from ..classes import EducationLevel, Subject
+from ..classes import EducationLevel, Subject, FlashCategory
 from ..database import Course, File, db
 from ..forms import AddCourseForm, AddFileForm
 from . import main
@@ -32,7 +32,7 @@ def upload_file() -> str:
         logger.info(
             f"User {current_user.username} uploaded file '{f.title}' ({f.file_info['file_id']})"
         )
-        flash("Fichier téléversé!", "success")
+        flash("Fichier téléversé!", FlashCategory.SUCCESS)
         return redirect(url_for("main.index"))
 
     return render_template("file_upload.jinja", form=form)
@@ -56,7 +56,7 @@ def create_course() -> str:
         db.session.commit()
 
         logger.info(f"User {current_user.username} created course '{c.title}' ({c.id})")
-        flash("Cours créé!", "success")
+        flash("Cours créé!", FlashCategory.SUCCESS)
         return redirect(url_for("main.index"))
 
     return render_template("create_course.jinja", form=form)

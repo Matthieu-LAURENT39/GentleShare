@@ -10,7 +10,7 @@ class FlashCategory(StrEnum):
     INFO = "blue"
     """Information message"""
 
-    WARNING = "yellow"
+    WARNING = "orange"
     """Warning message"""
 
     ERROR = "red"
