@@ -9,7 +9,6 @@ from . import AddCourseForm
 
 # For now it's almost the exact same as AddCourseForm, so we just recycle it
 class AddFileForm(AddCourseForm):
-    filename = StringField("Nom du fichier", validators=[DataRequired()])
     file = FileField(
         "Fichier",
         validators=[
