@@ -28,14 +28,13 @@
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ course.description }}</p>
     </div>
     <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="telephone">
-        <svg class="h-6 w-6 text-blue-500 transform transition-transform duration-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="svgTelephone">  
+        <svg class="h-6 w-6 text-blue-500 animate-vibrate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="svgTelephone">  
             <path stroke="none" d="M0 0h24v24H0z"/>  
             <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
         </svg>
-        <p id="numero" style="color: black;" class="hidden"> test</p>
+        <p id="numero" style="color: black;" class="hidden">Test</p>
     </a>
 </div>
-<br>
 {% endfor %}
 
 <div class="grid-container">
@@ -64,22 +63,21 @@
 
 
 <script>
-    const telephone = document.getElementById('telephone');
     const svgTelephone = document.getElementById('svgTelephone');
     const numero = document.getElementById('numero');
 
-    telephone.addEventListener('mouseenter', () => {
-        svgTelephone.style.transform = 'rotate(90deg)';
+    const vibrate = () => {
+        svgTelephone.classList.add('animate-vibrate');
         numero.classList.remove('hidden');
-        numero.classList.add('transition-opacity', 'duration-500', 'opacity-100');
-    });
+    };
 
-    telephone.addEventListener('mouseleave', () => {
-        svgTelephone.style.transform = 'rotate(0deg)';
+    const stopVibrate = () => {
+        svgTelephone.classList.remove('animate-vibrate');
         numero.classList.add('hidden');
-        numero.classList.remove('opacity-100');
-    });
+    };
 
+    svgTelephone.addEventListener('mouseenter', vibrate);
+    svgTelephone.addEventListener('mouseleave', stopVibrate);
 
     const search_bar = document.getElementById('search-bar');
     const searchables = document.querySelectorAll('[data-title]');
