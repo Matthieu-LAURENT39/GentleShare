@@ -1,6 +1,6 @@
 {% extends 'base.jinja' %}
 {% from '_macro.jinja' import form_field, file_form_field with context %}
-{% from '_tables.jinja' import file_table with context %}
+{% from '_tables.jinja' import file_table, course_table with context %}
 
 {% block title %}
 {{ super() }} - Profil de {{user.username}}
@@ -8,8 +8,14 @@
 
 {% block content %}
 <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center my-4">Fichiers de {{user.username}}</h2>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         {{ file_table(user.uploaded_files)}}
+    </div>
+
+    <h2 class="text-3xl font-bold text-center my-4">Cours de {{user.username}}</h2>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        {{ course_table(user.owned_courses)}}
     </div>
 </div>
 {% endblock %}
