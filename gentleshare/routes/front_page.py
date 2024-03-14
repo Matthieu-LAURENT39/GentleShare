@@ -11,7 +11,6 @@ from . import main
 def index():
     file_list: list[File] = File.query.order_by(File.uploaded_at.desc()).all()
     course_list: list[Course] = Course.query.order_by(Course.id.desc()).all()
-    flash("test", FlashCategory.SUCCESS)
     return render_template("index.jinja", file_list=file_list, course_list=course_list)
 
 
