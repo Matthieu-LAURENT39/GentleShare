@@ -14,9 +14,9 @@ def index():
     return render_template("index.jinja", file_list=file_list, course_list=course_list)
 
 
-@main.route("/profile", methods=["GET", "POST"])
+@main.route("/settings", methods=["GET", "POST"])
 @login_required
-def profile():
+def settings():
 
     form = ProfileForm(obj=current_user)
     user: User = current_user
@@ -31,4 +31,4 @@ def profile():
         db.session.commit()
         flash("Profil mis à jour!", FlashCategory.SUCCESS)
 
-    return render_template("profile.jinja", form=form)
+    return render_template("settings.jinja", form=form)
