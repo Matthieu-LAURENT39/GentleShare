@@ -19,15 +19,15 @@ def index():
 def profile():
 
     form = ProfileForm(obj=current_user)
+    user: User = current_user
 
     if form.validate_on_submit():
-        displayname = form.display_name.data
-        about = form.about.data
+        user.display_name = form.display_name.data
+        user.about_me = form.about_me.data
+        user.email = form.email.data
+        user.phone_number = form.phone_number.data
 
-        current_user.display_name = displayname
-        current_user.about_me = about
-
-        db.session.add(current_user)
+        db.session.add(user)
         db.session.commit()
         flash("Profil mis à jour!", "success")
 
