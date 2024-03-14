@@ -12,8 +12,8 @@ class EducationLevel(Enum):
     @property
     def display_name(self) -> str:
         return {
-            EducationLevel.ELEMENTARY: "Elementary school",
-            EducationLevel.MIDDLE: "Middle school",
-            EducationLevel.HIGH: "High school",
-            EducationLevel.UNIVERSITY: "University",
+            EducationLevel.ELEMENTARY: "École primaire",
+            EducationLevel.MIDDLE: "Collège",
+            EducationLevel.HIGH: "Lycée",
+            EducationLevel.UNIVERSITY: "Université",
         }[self]

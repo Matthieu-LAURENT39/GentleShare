@@ -13,10 +13,10 @@ class AddCourseForm(FlaskForm):
 
     education_level = SelectField(
         "Niveau d'éducation",
-        choices=[(level.name, level.value) for level in EducationLevel],
+        choices=[(level.name, level.display_name) for level in EducationLevel],
     )
     """The education level the course is associated with"""
     subject = SelectField(
-        "Matière", choices=[(subject.name, subject.value) for subject in Subject]
+        "Matière", choices=[(subject.name, subject.display_name) for subject in Subject]
     )
     """The subject the course is associated with"""
