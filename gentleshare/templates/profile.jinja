@@ -24,9 +24,7 @@
             <form action="{{url_for('main.profile')}}" method="POST" class="mt-4">
                 {{form_field(form.display_name, form)}}
                 <br>
-                {{form_field(form.display_first_name, form)}}
-                <br>
-                {{form_field(form.display_email, form)}}
+                {{form_field(form.email, form)}}
                 <br>
                 {{form_field(form.about_me, form)}}
                 <br>
@@ -36,10 +34,13 @@
 
         <!-- Colonne de droite -->
         <div>
-            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"> Double Authentification </h1>
+            <h1
+                class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                Double Authentification </h1>
             <div>
                 <h3 class="text-lg font-semibold">TOTP</h3>
-                <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="40%" height="40%">
+                <img id="totp-qr-code" class="blurred" src="{{ qrcode(current_user.totp_uri) }}" width="40%"
+                    height="40%">
             </div>
         </div>
 
