@@ -7,9 +7,7 @@
 
 {% block head %}
 {{ super() }}
-{# Custom CSS#}
 <link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
-{# Custom JS#}
 <script src="{{url_for('static', filename='js/profile.js')}}"></script>
 {% endblock %}
 
@@ -24,13 +22,9 @@
                 <form action="{{url_for('main.profile')}}" method="POST">
                     {{ form.csrf_token }}
                     {{ form_field(form.display_name, form) }}
-                    <br>
                     {{ form_field(form.email, form) }}
-                    <br>
                     {{ form_field(form.about_me, form) }}
-                    <br>
-                    {{ form_field(form.phone_number, form) }} {# Ajout du champ pour le numéro de téléphone #}
-                    <br>
+                    {{ form_field(form.phone_number, form) }}
                     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
                 </form>
             </div>

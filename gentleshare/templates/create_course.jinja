@@ -8,7 +8,7 @@
 {% block content %}
 <div class="container mx-auto">
     <h2 class="text-2xl font-bold">Créer un cours:</h2>
-    <form action="{{url_for('main.create_course')}}" method="POST">
+    <form class="max-w-lg mx-auto" action="{{url_for('main.create_course')}}" method="POST">
         {{form.csrf_token}}
         {{form_field(form.title, form)}}
         {{form_field(form.description, form)}}
