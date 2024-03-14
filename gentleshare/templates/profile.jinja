@@ -8,7 +8,6 @@
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
-<script src="{{url_for('static', filename='js/profile.js')}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -31,8 +30,8 @@
         </div>
 
         <!-- Colonne de droite -->
-        <div class="md:pr-4 mt-4"> {# Ajout de la classe md:pr-4 pour décaler la partie "Double Authentification" et
-            tout ce qui suit vers la droite uniquement sur les écrans md et plus grands #}
+        <div class="md:pr-8 mt-4"> {# Ajout de la classe md:pr-8 pour décaler la partie "Double Authentification" et
+            tout ce qui suit vers la droite de 8 unités uniquement sur les écrans md et plus grands #}
             <h1
                 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                 Double Authentification</h1>
@@ -47,4 +46,11 @@
 
     </div>
 </div>
+
+<script>
+    const totp_qr_code = document.getElementById('totp-qr-code');
+    totp_qr_code.addEventListener('click', () => {
+        totp_qr_code.classList.toggle("blurred");
+    });
+</script>
 {% endblock content %}
