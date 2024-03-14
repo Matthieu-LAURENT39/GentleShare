@@ -73,12 +73,11 @@
                     {{ course.description | escape }}
                 </td>
                 <td class="px-6 py-4">
-                    <!-- TODO: Ajouter la propriété de l'utilisateur -->
-                    {{ 'TODO' }}
+                    {{ course.owner.username | escape }}
                 </td>
                 <td class="px-6 py-4">
-                    <!-- TODO: Ajouter le contact du propriétaire -->
-                    {{ 'TODO' }}
+                <a class="hover:text-blue-500" href="mailto:{{ course.owner.email | escape }}">{{ course.owner.email | escape }}</a><br>
+                <a class="hover:text-blue-500" href="tel:{{ course.owner.phone_number | escape }}">{{ course.owner.phone_number | escape }}</a><br>
                 </td>
             </tr>
             {% endfor %}

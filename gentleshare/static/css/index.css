@@ -9,6 +9,16 @@
     /* Si vous souhaitez ajouter des styles spécifiques aux éléments de la grille, faites-le ici */
 }
 
+@keyframes vibrate {
+    0% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+    100% { transform: rotate(-10deg); }
+}
+
+.animate-vibrate {
+    animation: vibrate 0.1s infinite;
+}
+
 /* Responsive: Ajustez le nombre de colonnes sur les écrans plus petits si nécessaire */
 @media (max-width: 768px) {
     .grid-container {

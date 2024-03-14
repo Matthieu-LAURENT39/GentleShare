@@ -1,10 +1,6 @@
 {% extends 'base.jinja' %}
 {% from '_macro.jinja' import form_field with context %}
 
-{% block title %}
-{{ super() }} - Connexion
-{% endblock %}
-
 {% block content %}
 
 <section class="bg-white dark:bg-gray-900">
@@ -32,9 +28,10 @@
                       </div>
                       <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié ?</a>
                   </div>
-                  <button type="submit" class="w-full text-black bg-grey-200 hover:bg-700 focus:ring-4 focus:outline-none focus:ring-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                  <button type="submit" class="w-full text-black bg-primary-grey hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   Se connecter
                   </button>
+                  <button type = "button" class="w-full text-black bg-primary-grey hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                       Pas encore de compte ? <a href="{{url_for('main.register')}}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">S'inscrire</a>
                   </p>
