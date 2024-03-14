@@ -1,30 +1,6 @@
 {% macro form_field(field, form) -%}
-<div class="form-group">
-    {# <label id="{{field.label.field_id}}" for="{{field.name}}">{{field.label.text}}</label> #}
-
-    {% if not form.is_submitted() %}
-    {% set validation_class = "" %}
-    {% elif field.errors %}
-    {% set validation_class = "is-invalid" %}
-    {% else %}
-    {# {% set validation_class = "is-valid" %} #}
-    {# This is in my opinion cleaner, it allows redisplaying a form
-    with adding validation checks.
-    #}
-    {% set validation_class = "" %}
-    {% endif %}
-
-
+<div class="mb-4">
     {{ field.label }}
-    {{ field(class_="form-control " + validation_class, **{"aria-describedby":
-    field.name+"-error"}) }}
-
-    {% if field.errors %}
-    {% for error in field.errors %}
-    <div id="{{field.name}}-error" class="invalid-feedback">
-        {{error}}
-    </div>
-    {% endfor %}
-    {% endif %}
+    {{ field(class_="w-full px-3 py-2 border rounded-md") }}
 </div>
 {%- endmacro %}
