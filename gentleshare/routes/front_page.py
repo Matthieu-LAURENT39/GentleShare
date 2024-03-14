@@ -1,10 +1,10 @@
-from flask import render_template, flash
+from flask import flash, render_template
 from flask_login import current_user, login_required
 
-from ..database import File, User, Course
-from . import main
+from ..classes import FlashCategory
+from ..database import Course, File, User, db
 from ..forms import ProfileForm
-from ..database import db
+from . import main
 
 
 @main.route("/")
@@ -29,6 +29,6 @@ def profile():
 
         db.session.add(user)
         db.session.commit()
-        flash("Profil mis à jour!", "success")
+        flash("Profil mis à jour!", FlashCategory.SUCCESS)
 
     return render_template("profile.jinja", form=form)
