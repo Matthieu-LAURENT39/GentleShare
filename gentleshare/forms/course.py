@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, StringField
+from wtforms import SelectField, StringField, TextAreaField
 from wtforms.validators import DataRequired
 
 from ..classes import EducationLevel, Subject
@@ -8,7 +8,7 @@ from ..classes import EducationLevel, Subject
 class AddCourseForm(FlaskForm):
     title = StringField("Titre", validators=[DataRequired()])
     """The title of the course"""
-    description = StringField("Description", validators=[DataRequired()])
+    description = TextAreaField("Description", validators=[DataRequired()])
     """The description of the course. Can contain Markdown."""
 
     education_level = SelectField(
