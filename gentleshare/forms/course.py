@@ -1,0 +1,22 @@
+from flask_wtf import FlaskForm
+from wtforms import SelectField, StringField
+from wtforms.validators import DataRequired
+
+from ..classes import EducationLevel, Subject
+
+
+class AddCourseForm(FlaskForm):
+    title = StringField("Titre", validators=[DataRequired()])
+    """The title of the course"""
+    description = StringField("Description", validators=[DataRequired()])
+    """The description of the course. Can contain Markdown."""
+
+    education_level = SelectField(
+        "Niveau d'éducation",
+        choices=[(level.name, level.value) for level in EducationLevel],
+    )
+    """The education level the course is associated with"""
+    subject = SelectField(
+        "Matière", choices=[(subject.name, subject.value) for subject in Subject]
+    )
+    """The subject the course is associated with"""

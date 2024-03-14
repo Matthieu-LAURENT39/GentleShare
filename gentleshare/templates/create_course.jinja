@@ -1,0 +1,22 @@
+{% extends 'base.jinja' %}
+{% from '_macro.jinja' import form_field with context %}
+
+{% block title %}
+{{ super() }} - Ajout cours
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto">
+    <h2 class="text-2xl font-bold">Créer un cours:</h2>
+    <form action="{{url_for('main.create_course')}}" method="POST">
+        {{form.csrf_token}}
+        {{form_field(form.title, form)}}
+        {{form_field(form.description, form)}}
+        {{form_field(form.education_level, form)}}
+        {{form_field(form.subject, form)}}
+
+        <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter</button>
+    </form>
+</div>
+{% endblock content %}

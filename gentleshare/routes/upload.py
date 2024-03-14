@@ -5,6 +5,7 @@ from loguru import logger
 
 from ..classes import EducationLevel, Subject
 from ..database import Course, File, db
+from ..forms import AddCourseForm
 from . import main
 
 
@@ -38,20 +39,22 @@ def upload_file() -> str:
 @main.route("/create_course", methods=["GET", "POST"])
 @login_required
 def create_course() -> str:
-    # if request.method == "POST":
-    c = Course(
-        owner=current_user,
-        title="title",
-        description="description",
-        education_level=EducationLevel.MIDDLE,
-        subject=Subject.ENGLISH,
-    )
+    form = AddCourseForm()
 
-    db.session.add(c)
-    db.session.commit()
+    if form.validate_on_submit():
+        c = Course(
+            owner=current_user,
+            title=form.title.data,
+            description=form.description.data,
+            education_level=EducationLevel[form.education_level.data],
+            subject=Subject[form.subject.data],
+        )
 
-    logger.info(f"User {current_user.username} created course '{c.title}' ({c.id})")
-    flash("Cours créé!", "success")
-    return redirect(url_for("main.index"))
+        db.session.add(c)
+        db.session.commit()
 
-    return render_template("course_create.jinja")
+        logger.info(f"User {current_user.username} created course '{c.title}' ({c.id})")
+        flash("Cours créé!", "success")
+        return redirect(url_for("main.index"))
+
+    return render_template("create_course.jinja", form=form)
