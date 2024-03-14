@@ -5,23 +5,52 @@
 {% endblock %}
 
 {% block content %}
-{# TODO: Put a better upload form here #}
 <div class="container mx-auto">
     <h2 class="text-2xl font-bold">Téléversement de fichier:</h2>
-    <form action="{{url_for('main.upload_file')}}" method="POST" enctype="multipart/form-data">
+    <form class="max-w-lg mx-auto" action="{{url_for('main.upload_file')}}" method="POST" enctype="multipart/form-data">
         <div class="mb-4">
-            <label for="file" class="block font-semibold">Veuillez choisir le nom du fichier:</label>
-            <input type="text" class="w-full px-3 py-2 border rounded-md" name="title">
+            <label for="filename" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Veuillez choisir le nom du fichier:</label>
+            <input type="text" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" id="filename" name="filename" placeholder="Nom du fichier">
         </div>
         <div class="mb-4">
-            <label for="file" class="block font-semibold">Veuillez choisir le fichier à téléverser:</label>
-            <input type="file" class="w-full px-3 py-2 border rounded-md" id="file" name="file">
+            <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Veuillez choisir le fichier à téléverser:</label>
+            <input type="file" class="hidden" id="file" name="file" />
+            <label for="file" class="cursor-pointer">
+                <div class="border border-dashed border-gray-300 rounded-lg p-4" id="drop-zone">
+                    <div class="flex justify-center items-center">
+                        <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        <span class="text-sm">Glissez-déposez vos fichiers ici ou <span class="text-blue-600 hover:underline">sélectionnez un fichier</span></span>
+                    </div>
+                </div>
+            </label>
+            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm your are logged into your account</div>
         </div>
         <div class="mb-4">
-            <label for="description" class="block font-semibold">Description:</label>
-            <textarea class="w-full px-3 py-2 border rounded-md" name="description" rows="4" cols="50"></textarea>
+            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description:</label>
+            <textarea class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" name="description" rows="4" cols="50"></textarea>
         </div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload</button>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
     </form>
 </div>
-{% endblock content %}
+
+<script>
+    const dropZone = document.getElementById('drop-zone');
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blue-500');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-blue-500');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blue-500');
+        const files = e.dataTransfer.files;
+        document.getElementById('file').files = files;
+        document.getElementById('filename').value = files[0].name;
+    });
+</script>
+{% endblock %}
