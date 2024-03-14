@@ -5,7 +5,7 @@
 groups = ["default", "doc", "lint", "test"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:9afd09c256287d2a9d09013c0377195fe4b4b62fc97b398cc223b347293c903f"
+content_hash = "sha256:11dfae72de315bc346a04565bbfb34761a011e1acb9638a150ea60a297810398"
 
 [[package]]
 name = "apache-libcloud"
@@ -368,6 +368,18 @@ files = [
 ]
 
 [[package]]
+name = "markdown-mark"
+version = "0.0.1"
+summary = "A markdown python extension that enables you to create <mark> tag by using ==some text== or ???other text???"
+groups = ["default"]
+dependencies = [
+    "markdown>=3.0",
+]
+files = [
+    {file = "markdown_mark-0.0.1.tar.gz", hash = "sha256:2602817b6ca6103d759e5decb8c74c8c829de33d78954736c6a38c8278b6d346"},
+]
+
+[[package]]
 name = "markupsafe"
 version = "2.1.5"
 requires_python = ">=3.7"
@@ -557,6 +569,21 @@ files = [
 ]
 
 [[package]]
+name = "pymdown-extensions"
+version = "10.7.1"
+requires_python = ">=3.8"
+summary = "Extension pack for Python Markdown."
+groups = ["default"]
+dependencies = [
+    "markdown>=3.5",
+    "pyyaml",
+]
+files = [
+    {file = "pymdown_extensions-10.7.1-py3-none-any.whl", hash = "sha256:f5cc7000d7ff0d1ce9395d216017fa4df3dde800afb1fb72d1c7d3fd35e710f4"},
+    {file = "pymdown_extensions-10.7.1.tar.gz", hash = "sha256:c70e146bdd83c744ffc766b4671999796aba18842b268510a329f7f64700d584"},
+]
+
+[[package]]
 name = "pyotp"
 version = "2.9.0"
 requires_python = ">=3.7"
@@ -599,7 +626,7 @@ name = "pyyaml"
 version = "6.0.1"
 requires_python = ">=3.6"
 summary = "YAML parser and emitter for Python"
-groups = ["lint"]
+groups = ["default", "lint"]
 files = [
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
