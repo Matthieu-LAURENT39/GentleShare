@@ -24,23 +24,20 @@
 <div
     class="max-w-sm p-6 bg-white border border-gray-200 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
     <div>
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{
-            course.education_level.display_name | escape }} - {{ course.title | escape }}</h5>
-
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ course.description | escape | markdown }}</p>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ course.education_level.display_name | escape }} - {{ course.title | escape }}</h5>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ course.description }}</p>
     </div>
-    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        id="telephone">
-        <svg class="h-6 w-6 text-blue-500 animate-vibrate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="svgTelephone">
-            <path stroke="none" d="M0 0h24v24H0z" />
-            <path
-                d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <svg class="h-6 w-6 text-blue-500 animate-vibrate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="svgTelephone">
+            <path stroke="none" d="M0 0h24v24H0z"/>  
+            <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
         </svg>
-        <p id="numero" style="color: black;" class="hidden">Test</p>
+        <p class="numero hidden" style="color: black;">{{ course.phone_number }}</p>
     </a>
 </div>
 {% endfor %}
+
+
 
 <div class="grid-container">
     {% if file_list %}
@@ -93,6 +90,8 @@
 
     svgTelephone.addEventListener('mouseenter', vibrate);
     svgTelephone.addEventListener('mouseleave', stopVibrate);
+
+    svgTelephone.classList.remove('animate-vibrate');
 
     const search_bar = document.getElementById('search-bar');
     const searchables = document.querySelectorAll('[data-title]');

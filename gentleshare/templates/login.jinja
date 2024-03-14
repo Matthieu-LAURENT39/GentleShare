@@ -14,9 +14,9 @@
                   Connectez-vous à votre compte
               </h1>
               <form class="space-y-4 md:space-y-6" action="{{url_for('main.login')}}" method="POST">
-                    {{ form.csrf_token }}
-                  {{form_field(form.username, form)}}
-                  {{form_field(form.password, form)}}
+              {{ form.csrf_token }}
+              {{form_field(form.username, form)}}
+              {{form_field(form.password, form)}}
                   <div class="flex items-center justify-between">
                       <div class="flex items-start">
                           <div class="flex items-center h-5">
@@ -26,12 +26,11 @@
                             <label for="remember" class="text-gray-500 dark:text-gray-300">Se souvenir de moi</label>
                           </div>
                       </div>
-                      <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié ?</a>
+                      <a onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')" href="cheh" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié ?</a>
                   </div>
-                  <button type="submit" class="w-full text-black bg-primary-grey hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                  Se connecter
-                  </button>
-                  <button type = "button" class="w-full text-black bg-primary-grey hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                <button type="submit" class="w-full text-white bg-blue-500 hover:bg-blue    -600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    <a href="{{url_for('main.index')}}">Se connecter</a>
+                </button>
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                       Pas encore de compte ? <a href="{{url_for('main.register')}}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">S'inscrire</a>
                   </p>
