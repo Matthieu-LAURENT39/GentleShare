@@ -3,14 +3,20 @@ from __future__ import annotations
 from pprint import pprint
 from typing import TYPE_CHECKING, Callable, Optional
 
+import humanize.i18n
 from flask import Flask
 from flask_login import LoginManager
+from flask_qrcode import QRcode
+from libcloud.storage.drivers.local import LocalStorageDriver, StorageDriver
 from loguru import logger
 
+from . import filters
+from .classes import setup_storage_manager
 from .database import User, db
 from .flask_config import Config
 
 login_manager = LoginManager()
+qrcode = QRcode()
 
 
 @login_manager.user_loader
@@ -25,6 +31,10 @@ def load_user(user_id: str) -> Optional["User"]:
     """
 
     return User.query.filter_by(id=user_id).first()
+
+
+# Setup the locale for humanize
+humanize.i18n.activate("fr_FR")
 
 
 def create_app(config: object | Callable = Config) -> Flask:
@@ -45,12 +55,15 @@ def create_app(config: object | Callable = Config) -> Flask:
         static_url_path="/static",
     )
 
-    # Calls init,
+    # Calls init
     if callable(config):
         config = config()
 
     # We load the flask config
     app.config.from_object(config)
+
+    # Setup the storage manager
+    setup_storage_manager(app, ignore_if_already_registered=app.config["TESTING"])
 
     # SQLalchemy
     db.init_app(app)
@@ -58,8 +71,14 @@ def create_app(config: object | Callable = Config) -> Flask:
     # flask-login
     login_manager.init_app(app)
 
+    # flask-qrcode
+    qrcode.init_app(app)
+
     with app.app_context():
         db.create_all()
+
+    # Register the filters
+    app.jinja_env.filters["markdown"] = filters.markdown_filter
 
     # Register the blueprints
     from .routes import main

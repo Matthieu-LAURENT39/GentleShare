@@ -101,7 +101,7 @@
 
         <div id="courses" class="tab-content hidden pt-4">
             {# <h2 class="text-3xl font-bold text-center mb-4">Cours de {{user.username}}</h2> #}
-            {{ course_table(user.owned_courses) }}
+            {{ course_table(user.owned_courses, "course-table") }}
         </div>
 
         <div id="fav-files" class="tab-content hidden pt-4">
@@ -112,28 +112,45 @@
 </div>
 
 <script>
+    function selectTab(tab) {
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabs.forEach(t => {
+            t.classList.remove('text-blue-600');
+            t.classList.add('text-gray-600');
+        });
+        tabContents.forEach(tc => {
+            tc.classList.remove('active');
+            tc.classList.add('hidden');
+        });
+        tab.classList.remove('text-gray-600');
+        tab.classList.add('text-blue-600');
+        const target = document.querySelector(tab.dataset.tabTarget);
+        target.classList.add('active');
+        target.classList.remove('hidden');
+    }
+
     const tabs = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            const target = document.querySelector(tab.dataset.tabTarget);
-            tabContents.forEach(tc => {
-                tc.classList.remove('active');
-                tc.classList.add('hidden');
-            });
-            tabs.forEach(t => {
-                t.classList.remove('text-blue-600');
-                t.classList.add('text-gray-600');
-            });
-            tab.classList.remove('text-gray-600');
-            tab.classList.add('text-blue-600');
-            target.classList.add('active');
-            target.classList.remove('hidden');
+            window.location.hash = "tab-" + tab.dataset.tabTarget.replace('#', '');
+            selectTab(tab);
         });
     });
 
-    // Open the first tab by default
-    tabs[0].click();
+    // Open the tab from the hash, or the first tab if there is no hash
+    if (window.location.hash) {
+        const tab = document.querySelector(`[data-tab-target="${window.location.hash.replace('tab-', '')}"]`);
+        if (tab) {
+            selectTab(tab);
+        }
+        else {
+            selectTab(tabs[0]);
+        }
+    }
+    else {
+        selectTab(tabs[0]);
+    }
 </script>
 {% endblock %}
