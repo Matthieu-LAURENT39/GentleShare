@@ -9,15 +9,15 @@ from ..forms import LoginForm, RegisterForm
 from . import main
 
 
-@main.route("/myfiles", methods=["GET", "POST"])
-def myfiles() -> str:
+@main.route("/files", methods=["GET", "POST"])
+def list_files() -> str:
     file_list: list[File] = File.query.order_by(File.uploaded_at.desc()).all()
 
     return render_template("my_file.jinja", file_list=file_list)
 
 
-@main.route("/mycourses", methods=["GET", "POST"])
-def mycourses() -> str:
+@main.route("/courses", methods=["GET", "POST"])
+def list_courses() -> str:
     course_list: list[Course] = Course.query.order_by(Course.id.desc()).all()
 
     return render_template("my_courses.jinja", course_list=course_list)
@@ -52,5 +52,5 @@ def addtofav() -> str:
 
     # Redirection ou affichage de la page, selon votre logique d'application
     return redirect(
-        url_for("main.myfiles")
+        url_for("main.list_files")
     )  # Redirigez vers la liste de fichiers après l'ajout aux favoris
