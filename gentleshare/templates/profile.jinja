@@ -20,7 +20,7 @@
             {% if user.email %}
             <div>
                 <h3 class="text-lg font-semibold text-gray-700">Email:</h3>
-                <p class="text-md text-gray-600">{{user.email}}</p>
+                <a href="mailto:{{user.email}}" class="text-md text-gray-600">{{user.email}}</a>
             </div>
             {% endif %}
             {% if user.phone_number %}
@@ -67,6 +67,11 @@
             <li class="mr-2">
                 <button
                     class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
+                    data-tab-target="#about_me">A propos</button>
+            </li>
+            <li class="mr-2">
+                <button
+                    class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
                     data-tab-target="#files">Fichiers</button>
             </li>
             <li class="mr-2">
@@ -83,7 +88,14 @@
     </div>
 
     <div id="tabs-content">
-        <div id="files" class="tab-content active pt-4">
+        <div id="about_me" class="tab-content active pt-4">
+            {# <h2 class="text-3xl font-bold text-center mb-4">Fichiers de {{user.username}}</h2> #}
+            <div class="relative shadow-md sm:rounded-lg text-wrap break-words p-7">
+                {{ user.about_me | escape | markdown }}
+            </div>
+        </div>
+
+        <div id="files" class="tab-content hidden pt-4">
             {# <h2 class="text-3xl font-bold text-center mb-4">Fichiers de {{user.username}}</h2> #}
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 {{ file_table(user.uploaded_files) }}
