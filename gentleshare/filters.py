@@ -41,6 +41,24 @@ def markdown_filter(text: str) -> str:
     # Add bootstrap classes to prettify output
     soup = BeautifulSoup(md_html, "html.parser")
 
+    # Could potentially be done with the tailwind-prose plugin
+
+    # Fix headers to use the correct tailwind classes
+    for i in range(1, 7):
+        headers = soup.find_all(f"h{i}")
+        for header in headers:
+            nbr = (8 - i) // 2
+            header["class"] = header.get("class", []) + [
+                f"text-{nbr}xl",
+                "font-bold",
+                f"mt-{nbr}",
+                f"mb-{nbr//2}",
+            ]
+
+    # Add style to urls
+    for link in soup.find_all("a"):
+        link["class"] = link.get("class", []) + ["text-blue-600"]
+
     # Find all table elements and add the "table" class
     tables = soup.find_all("table")
     for table in tables:

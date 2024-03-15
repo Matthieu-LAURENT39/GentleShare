@@ -89,8 +89,7 @@
 
     <div id="tabs-content">
         <div id="about_me" class="tab-content active pt-4">
-            {# <h2 class="text-3xl font-bold text-center mb-4">Fichiers de {{user.username}}</h2> #}
-            <div class="relative shadow-md sm:rounded-lg text-wrap break-words p-7">
+            <div class="shadow-md sm:rounded-lg text-wrap break-words p-7">
                 {{ user.about_me | escape | markdown }}
             </div>
         </div>
