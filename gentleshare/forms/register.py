@@ -9,7 +9,7 @@ class RegisterForm(FlaskForm):
         validators=[
             DataRequired(),
             Length(
-                min=5,
+                min=4,
                 max=25,
                 message="Le nom d'utilisateur doit faire entre %(min)d et %(max)d caractères",
             ),
@@ -20,7 +20,6 @@ class RegisterForm(FlaskForm):
         validators=[
             DataRequired(),
             Length(
-                min=8,
                 max=100,
                 message="Le mot de passe doit faire entre %(min)d et %(max)d caractères",
             ),
