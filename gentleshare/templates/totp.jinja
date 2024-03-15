@@ -1,0 +1,19 @@
+{% extends 'base.jinja' %}
+
+{% block title %}
+{{ super() }} - Connexion
+{% endblock %}
+
+{% block content %}
+{# TODO: Put a better form here #}
+<div class="container">
+    <h2>TOTP Form</h2>
+    <form action="{{url_for('main.validate_totp')}}" method="POST">
+        <div class="form-group">
+            <label for="totp">TOTP Code</label>
+            <input type="text" class="form-control" id="totp" placeholder="Enter TOTP code" name="totp">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,118 @@
+{% extends 'base.jinja' %}
+{% from '_macro.jinja' import form_field with context %}
+
+{% block title %}
+{{ super() }} - Inscription
+{% endblock %}
+
+{% block content %}
+<section class="bg-white dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen md:h-auto lg:py-0">
+        <a href="{{url_for('main.index')}}" class="menu-logo" style="height: 100px;">
+            <img src="{{url_for('static', filename='logo.png')}}" alt="GentleShare" />
+        </a>
+        <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-8 md:space-y-8 sm:p-8">
+                <h1
+                    class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
+                    Créez-vous un compte
+                </h1>
+                <form class="space-y-4 md:space-y-6" action="{{url_for('main.register')}}" method="POST">
+                    {{ form.csrf_token }}
+                    {{form_field(form.username, form)}}
+                    {{form_field(form.password, form)}}
+                    {{form_field(form.password_confirm, form)}}
+
+                    {# Password strength indicator #}
+                    <div id="passwordStrengthIndicator" class="w-full h-4 bg-gray-200 rounded-full mt-2">
+                        <div id="strengthBar" class="h-4 rounded-full"></div>
+                    </div>
+                    <div id="passwordTips" class="mt-1"></div>
+                    <script>
+                        const strengthBar = document.getElementById('strengthBar');
+                        const tipsDiv = document.getElementById('passwordTips');
+
+                        function updateStrengthIndicator() {
+                            const password = document.getElementById('{{form.password.id}}').value;
+                            let strength = 0;
+                            let tips = [];
+
+                            // Clear current tips
+                            tipsDiv.innerHTML = '';
+
+                            // If there's any password, we display something at least
+                            if (password.length == 0) {
+                                strengthBar.style.width = '0%';
+                                strengthBar.className = 'h-4 rounded-full bg-gray-200';
+                                return;
+                            }
+
+                            // Check for length
+                            if (password.length > 10) { strength += 1 }
+                            else { tips.push('Ce mot de passe est un peu court'); }
+
+                            // Check for characters
+                            if (/[A-Za-z]/.test(password)) {
+                                strength += 1;
+                                if (/[A-Z]/.test(password) && /[a-z]/.test(password)) { strength += 1 }
+                                else { tips.push('Ajouter à la fois majuscules et minuscules'); }
+                            } else {
+                                tips.push('Ajouter au moins une lettre');
+                            }
+
+                            if (/[0-9]/.test(password)) { strength += 1 }
+                            else { tips.push("Essayer d'ajouter un chiffre"); }
+
+                            if (/[^A-Za-z0-9]/.test(password)) { strength += 1 }
+                            else { tips.push('Ajouter un caractère spécial') };
+
+                            switch (strength) {
+                                case 1:
+                                    strengthBar.style.width = '20%';
+                                    strengthBar.className = 'h-4 rounded-full bg-red-500';
+                                    break;
+                                case 2:
+                                    strengthBar.style.width = '40%';
+                                    strengthBar.className = 'h-4 rounded-full bg-yellow-500';
+                                    break;
+                                case 3:
+                                    strengthBar.style.width = '60%';
+                                    strengthBar.className = 'h-4 rounded-full bg-yellow-300';
+                                    break;
+                                case 4:
+                                    strengthBar.style.width = '80%';
+                                    strengthBar.className = 'h-4 rounded-full bg-green-300';
+                                    break;
+                                case 5:
+                                    strengthBar.style.width = '100%';
+                                    strengthBar.className = 'h-4 rounded-full bg-green-500';
+                                    break;
+                            }
+
+                            // Show tips
+                            if (tips.length > 0) {
+                                tipsDiv.innerHTML = "<ul class='list-disc list-inside'>" + tips.map(tip => `<li class="list-disc list-inside text-sm text-red-600 dark:text-red-400">${tip}</li>`).join('') + "</ul>";
+                            }
+                            else {
+                                tipsDiv.innerHTML = ""
+                            }
+                        }
+
+                        document.getElementById('{{form.password.id}}').addEventListener('input', updateStrengthIndicator);
+                    </script>
+
+                    <button type="submit"
+                        class="w-full text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <a href="{{url_for('main.index')}}">S'inscrire</a>
+                    </button>
+                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                        Déjà un compte ? <a href="{{url_for('main.login')}}"
+                            class="font-medium text-primary-600 hover:underline dark:text-primary-500">Se connecter</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
