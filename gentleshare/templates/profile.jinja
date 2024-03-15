@@ -26,6 +26,11 @@
                         class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
                         data-tab-target="#courses">Cours</button>
                 </li>
+                <li class="mr-2">
+                    <button
+                        class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
+                        data-tab-target="#fav-files">Fichiers favoris</button>
+                </li>
             </ul>
         </div>
 
@@ -41,6 +46,12 @@
                 {# <h2 class="text-3xl font-bold text-center mb-4">Cours de {{user.username}}</h2> #}
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     {{ course_table(user.owned_courses) }}
+                </div>
+            </div>
+
+            <div id="fav-files" class="tab-content hidden pt-4">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    {{ file_table(user.favorited_files) }}
                 </div>
             </div>
         </div>
