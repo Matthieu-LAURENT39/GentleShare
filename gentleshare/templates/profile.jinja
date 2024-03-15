@@ -97,7 +97,7 @@
         <div id="files" class="tab-content hidden pt-4">
             {# <h2 class="text-3xl font-bold text-center mb-4">Fichiers de {{user.username}}</h2> #}
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                {{ file_table(user.uploaded_files) }}
+                {{ file_table(user.uploaded_files, "file-list-uploaded") }}
             </div>
         </div>
 
@@ -110,7 +110,7 @@
 
         <div id="fav-files" class="tab-content hidden pt-4">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                {{ file_table(user.favorited_files) }}
+                {{ file_table(user.favorited_files, "file-list-favorited") }}
             </div>
         </div>
     </div>

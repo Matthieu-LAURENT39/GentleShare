@@ -1,120 +1,128 @@
-{% macro file_table(file_list) -%}
-<table id="filesTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-            <th scope="col" class="px-6 py-3 sortable" data-sort="title">
-                <div class="flex items-center">
-                    Titre
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                        </svg></a>
-                </div>
-            </th>
-            <th scope="col" class="px-6 py-3 sortable" data-sort="education_level">
-                <div class="flex items-center">
-                    Niveau d'éducation
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                        </svg></a>
-                </div>
-            </th>
+{# Table to display #}
+{% macro file_table(file_list, table_id) -%}
+<input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500
+    focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+    dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" id="{{table_id}}-search" type="text" ,
+    placeholder="Search">
 
-            <th scope="col" class="px-6 py-3 sortable" data-sort="subject">
-                <div class="flex items-center">
-                    Sujet
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                        </svg></a>
-                </div>
-            </th>
-            <th scope="col" class="px-6 py-3 sortable" data-sort="description">
-                <div class="flex items-center">
-                    Description du sujet
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                        </svg></a>
-                </div>
-            </th>
-            <th scope="col" class="px-6 py-3 sortable" data-sort="size">
-                <div class="flex items-center">
-                    Taille
-                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                        </svg></a>
-                </div>
-            </th>
-            <th scope="col" class="px-6 py-3">
-                Télécharger
-            </th>
-            <th scope="col" class="px-6 py-3">
-                Favoris
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if file_list %}
-        {% for file in file_list %}
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                {{ file.title | escape }}
-            </th>
-            <td class="px-6 py-4">
-                {{ file.education_level.display_name | escape }}
-            </td>
-            <td class="px-6 py-4">
-                {{ file.subject.display_name | escape }}
-            </td>
-            <td class="px-6 py-4">
-                {{ file.description | escape | markdown }}
-            </td>
-            <td class="px-6 py-4">
-                {{ file.pretty_file_size }}
-            </td>
-            <td class="px-6 py-4 text-right">
-                <a href="{{ file.file_url }}"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Télécharger</a>
-            </td>
-            <td class="px-6 py-4 text-center">
-                {% if file.is_favorite %}
-                <a href="{{ url_for('main.addtofav', file_id=file.id)}}"
-                    class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
-                        <path fill-rule="evenodd"
-                            d="M10 3.655l1.225 2.47 2.742.398-1.985 1.932.47 2.734-2.47-1.297-2.47 1.297.47-2.734L5.033 7.523l2.742-.398L10 3.655zM10 14.854l-3.54 1.85.675-3.93-2.864-2.805 3.957-.575L10 6.275l1.772 3.534 3.957.575-2.864 2.805.675 3.93L10 14.854z" />
-                    </svg>
-                </a>
-                {% else %}
-                <a href="{{ url_for('main.addtofav', file_id=file.id)}}"
-                    class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                        class="w-6 h-6 text-gray-400">
-                        <path fill-rule="evenodd"
-                            d="M10 3.655l1.225 2.47 2.742.398-1.985 1.932.47 2.734-2.47-1.297-2.47 1.297.47-2.734L5.033 7.523l2.742-.398L10 3.655zM10 14.854l-3.54 1.85.675-3.93-2.864-2.805 3.957-.575L10 6.275l1.772 3.534 3.957.575-2.864 2.805.675 3.93L10 14.854z" />
-                    </svg>
-                </a>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-        {% else %}
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td colspan="6" class="px-6 py-4 text-center">
-                Aucun fichier disponible.
-            </td>
-        </tr>
-        {% endif %}
-    </tbody>
-</table>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
+    <table id="{{table_id}}" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 sortable" data-sort="title">
+                    <div class="flex items-center">
+                        Titre
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg></a>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3 sortable" data-sort="education_level">
+                    <div class="flex items-center">
+                        Niveau d'éducation
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg></a>
+                    </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 sortable" data-sort="subject">
+                    <div class="flex items-center">
+                        Sujet
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg></a>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3 sortable" data-sort="description">
+                    <div class="flex items-center">
+                        Description du sujet
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg></a>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3 sortable" data-sort="size">
+                    <div class="flex items-center">
+                        Taille
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg></a>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Télécharger
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Favoris
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if file_list %}
+            {% for file in file_list %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                    {{ file.title | escape }}
+                </th>
+                <td class="px-6 py-4">
+                    {{ file.education_level.display_name | escape }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ file.subject.display_name | escape }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ file.description | escape | markdown }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ file.pretty_file_size }}
+                </td>
+                <td class="px-6 py-4 text-right">
+                    <a href="{{ file.file_url }}"
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Télécharger</a>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    {% if file.is_favorite %}
+                    <a href="{{ url_for('main.addtofav', file_id=file.id)}}"
+                        class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd"
+                                d="M10 3.655l1.225 2.47 2.742.398-1.985 1.932.47 2.734-2.47-1.297-2.47 1.297.47-2.734L5.033 7.523l2.742-.398L10 3.655zM10 14.854l-3.54 1.85.675-3.93-2.864-2.805 3.957-.575L10 6.275l1.772 3.534 3.957.575-2.864 2.805.675 3.93L10 14.854z" />
+                        </svg>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('main.addtofav', file_id=file.id)}}"
+                        class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            class="w-6 h-6 text-gray-400">
+                            <path fill-rule="evenodd"
+                                d="M10 3.655l1.225 2.47 2.742.398-1.985 1.932.47 2.734-2.47-1.297-2.47 1.297.47-2.734L5.033 7.523l2.742-.398L10 3.655zM10 14.854l-3.54 1.85.675-3.93-2.864-2.805 3.957-.575L10 6.275l1.772 3.534 3.957.575-2.864 2.805.675 3.93L10 14.854z" />
+                        </svg>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td colspan="6" class="px-6 py-4 text-center">
+                    Aucun fichier disponible.
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -147,11 +155,30 @@
             });
         });
     });
+
+    // Search
+    const searchInput = document.getElementById('{{table_id}}-search');
+    const table = document.getElementById('{{table_id}}');
+    // Ignore the ones in thead
+    const rows = table.querySelectorAll('tbody>tr');
+    searchInput.addEventListener('keyup', function () {
+        const searchString = searchInput.value.toLowerCase();
+        for (let row of rows) {
+            let text = row.textContent.toLowerCase();
+            if (text.includes(searchString)) {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
 </script>
 {%- endmacro %}
 
 
 
+
+{# Table to display courses #}
 {% macro course_table(course_list) -%}
 <table id="coursesTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
