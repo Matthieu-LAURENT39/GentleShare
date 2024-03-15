@@ -5,6 +5,7 @@ from markupsafe import escape
 from sqlalchemy.exc import IntegrityError
 
 from ..database import Course, File, User, db
+from ..classes import FlashCategory
 from ..forms import LoginForm, RegisterForm
 from . import main
 
@@ -38,9 +39,11 @@ def addtofav() -> str:
                 if file not in current_user.favorited_files:
                     current_user.favorited_files.append(file)
                     db.session.commit()
-                    flash("Fichier ajouté aux favoris avec succès.", "success")
+                    flash(
+                        "Fichier ajouté aux favoris avec succès.", FlashCategory.SUCCESS
+                    )
                 else:
-                    flash("Ce fichier est déjà dans vos favoris.", "info")
+                    flash("Ce fichier est déjà dans vos favoris.", FlashCategory.INFO)
             except IntegrityError:
                 db.session.rollback()
                 flash(
@@ -48,7 +51,7 @@ def addtofav() -> str:
                     "error",
                 )
         else:
-            flash("Fichier non trouvé.", "error")
+            flash("Fichier non trouvé.", FlashCategory.ERROR)
 
     # Redirection ou affichage de la page, selon votre logique d'application
     return redirect(

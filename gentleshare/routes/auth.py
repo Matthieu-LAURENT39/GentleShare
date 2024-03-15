@@ -70,7 +70,7 @@ def register() -> str:
             return render_template("register.jinja", form=form)
 
         login_user(user)
-        flash("User created", "success")
+        flash("User created", FlashCategory.SUCCESS)
         return redirect(url_for("main.index"))
 
     return render_template("register.jinja", form=form)
