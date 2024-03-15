@@ -134,14 +134,14 @@
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            window.location.hash = tab.dataset.tabTarget;
+            window.location.hash = "tab-" + tab.dataset.tabTarget.replace('#', '');
             selectTab(tab);
         });
     });
 
     // Open the tab from the hash, or the first tab if there is no hash
     if (window.location.hash) {
-        const tab = document.querySelector(`[data-tab-target="${window.location.hash}"]`);
+        const tab = document.querySelector(`[data-tab-target="${window.location.hash.replace('tab-', '')}"]`);
         if (tab) {
             selectTab(tab);
         }
