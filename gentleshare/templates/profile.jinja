@@ -13,49 +13,97 @@
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Modifier mon profil</a>
     {% endif %}
 
-    <div class="my-6">
-        <div class="border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px text-md font-medium text-center" id="tab-list">
-                <li class="mr-2">
-                    <button
-                        class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
-                        data-tab-target="#files">Fichiers</button>
-                </li>
-                <li class="mr-2">
-                    <button
-                        class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
-                        data-tab-target="#courses">Cours</button>
-                </li>
-                <li class="mr-2">
-                    <button
-                        class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
-                        data-tab-target="#fav-files">Fichiers favoris</button>
-                </li>
-            </ul>
+    <div class="bg-white p-8 rounded-3xl shadow-xl mb-6">
+        <h2 class="text-3xl font-bold mb-6">{{user.display_name if user.display_name else user.username}}</h2>
+
+        <div class="flex justify-center space-x-96 gap-10 mb-6">
+            {% if user.email %}
+            <div>
+                <h3 class="text-lg font-semibold text-gray-700">Email:</h3>
+                <p class="text-md text-gray-600">{{user.email}}</p>
+            </div>
+            {% endif %}
+            {% if user.phone_number %}
+            <div>
+                <h3 class="text-lg font-semibold text-gray-700">Phone Number:</h3>
+                <p class="text-md text-gray-600">{{user.phone_number}}</p>
+            </div>
+            {% endif %}
         </div>
 
-        <div id="tabs-content">
-            <div id="files" class="tab-content active pt-4">
-                {# <h2 class="text-3xl font-bold text-center mb-4">Fichiers de {{user.username}}</h2> #}
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    {{ file_table(user.uploaded_files) }}
-                </div>
+        <div class="grid grid-cols-3 gap-6 mb-6">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-gray-700">Uploaded Files:</h3>
+                <p class="text-xl font-bold text-gray-800">{{user.uploaded_files|length}}</p>
             </div>
-
-            <div id="courses" class="tab-content hidden pt-4">
-                {# <h2 class="text-3xl font-bold text-center mb-4">Cours de {{user.username}}</h2> #}
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    {{ course_table(user.owned_courses) }}
-                </div>
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-gray-700">Created Courses:</h3>
+                <p class="text-xl font-bold text-gray-800">{{user.owned_courses|length}}</p>
             </div>
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-gray-700">Favorited Files:</h3>
+                <p class="text-xl font-bold text-gray-800">{{user.favorited_files|length}}</p>
+            </div>
+        </div>
+        {# <div>
+            <h3 class="text-lg font-semibold text-gray-700">Average Review:</h3>
+            <div class="flex justify-center gap-1">
+                {% for i in range(1, 6) %}
+                <svg class="w-6 h-6 {{'text-yellow-500' if i <= user.average_review else 'text-gray-400'}}"
+                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.785.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z">
+                    </path>
+                </svg>
+                {% endfor %}
+            </div>
+        </div> #}
+    </div>
 
-            <div id="fav-files" class="tab-content hidden pt-4">
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    {{ file_table(user.favorited_files) }}
-                </div>
+
+
+    <div class="border-b border-gray-200">
+        <ul class="flex flex-wrap -mb-px text-md font-medium text-center" id="tab-list">
+            <li class="mr-2">
+                <button
+                    class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
+                    data-tab-target="#files">Fichiers</button>
+            </li>
+            <li class="mr-2">
+                <button
+                    class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
+                    data-tab-target="#courses">Cours</button>
+            </li>
+            <li class="mr-2">
+                <button
+                    class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
+                    data-tab-target="#fav-files">Fichiers favoris</button>
+            </li>
+        </ul>
+    </div>
+
+    <div id="tabs-content">
+        <div id="files" class="tab-content active pt-4">
+            {# <h2 class="text-3xl font-bold text-center mb-4">Fichiers de {{user.username}}</h2> #}
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                {{ file_table(user.uploaded_files) }}
+            </div>
+        </div>
+
+        <div id="courses" class="tab-content hidden pt-4">
+            {# <h2 class="text-3xl font-bold text-center mb-4">Cours de {{user.username}}</h2> #}
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                {{ course_table(user.owned_courses) }}
+            </div>
+        </div>
+
+        <div id="fav-files" class="tab-content hidden pt-4">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                {{ file_table(user.favorited_files) }}
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>
