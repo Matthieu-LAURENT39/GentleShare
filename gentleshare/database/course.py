@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from datetime import UTC, datetime
+
 from sqlalchemy import Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from . import db
 from ..classes import EducationLevel, Subject
+from . import db
 
 
 class Course(db.Model):
@@ -22,6 +24,9 @@ class Course(db.Model):
     """The title of the course"""
     description: Mapped[str]
     """The description of the course. Can contain Markdown."""
+
+    created_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC))
+    """The date and time the course was created, in UTC"""
 
     education_level: Mapped[EducationLevel]
     """The education level the course is associated with"""
