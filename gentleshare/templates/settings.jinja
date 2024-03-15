@@ -21,8 +21,8 @@
                 <form action="{{url_for('main.settings')}}" method="POST">
                     {{ form.csrf_token }}
                     {{ form_field(form.display_name, form) }}
-                    {{ form_field(form.email, form) }}
                     {{ form_field(form.about_me, form) }}
+                    {{ form_field(form.email, form) }}
                     {{ form_field(form.phone_number, form) }}
                     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
                 </form>
