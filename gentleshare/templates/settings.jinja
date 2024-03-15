@@ -12,11 +12,12 @@
 
 {% block content %}
 <div class="container mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
 
         <!-- Colonne de gauche -->
-        <div class="md:pl-4">
-            <div>
+        <div class="md:pl-4 col-span-2">
+            <h1 class="text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">Mes infos</h1>
+            <div class="mt-4">
                 <h1 class="text-xl font-semibold mb-4">Informations personnelles</h1>
                 <form action="{{url_for('main.settings')}}" method="POST">
                     {{ form.csrf_token }}
@@ -32,8 +33,7 @@
         <!-- Colonne de droite -->
         <div class="md:pr-8 mt-4"> {# Ajout de la classe md:pr-8 pour décaler la partie "Double Authentification" et
             tout ce qui suit vers la droite de 8 unités uniquement sur les écrans md et plus grands #}
-            <h1
-                class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">
                 Double Authentification</h1>
             <div class="flex flex-row justify-end">
                 <div>
