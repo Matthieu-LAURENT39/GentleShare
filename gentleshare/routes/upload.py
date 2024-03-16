@@ -1,11 +1,12 @@
+from pytest import console_main
 import sqlalchemy_file
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from loguru import logger
 
 from ..classes import EducationLevel, Subject, FlashCategory
-from ..database import Course, File, db
-from ..forms import AddCourseForm, AddFileForm
+from ..database import Course, File, Review, db
+from ..forms import AddCourseForm, AddFileForm, AddCommentForm
 from . import main
 
 
@@ -65,3 +66,32 @@ def create_course() -> str:
         return redirect(url_for("main.index"))
 
     return render_template("create_course.jinja", form=form)
+
+@main.route("/add_comment", methods=["GET", "POST"])
+@login_required
+def add_comment() -> str:
+    form = AddCommentForm()
+
+    get_course_id = request.args.get('course_id')
+    course_element = Course.query.get(get_course_id)
+    print("printtttttttt", course_element)  # Ajoutez cette ligne pour afficher la valeur de get_course_id
+
+
+    if form.validate_on_submit():
+        r = Review(
+            reviewer_id=current_user.id,
+            course_id=course_element.id,
+            rating=form.rating.data,
+            comment = form.review.data
+        )
+
+        db.session.add(r)
+        db.session.commit()
+
+        logger.info(f"User {current_user.username} added a review to course '{r.course}' ({r.course_id})")
+        flash("Commentaire ajouté!", FlashCategory.SUCCESS)
+        return redirect(url_for("main.index"))
+        
+    print("test**********:", course_element)  # Ajoutez cette ligne pour afficher la valeur de get_course_id
+
+    return render_template("comment_page.jinja", form=form, course=course_element)

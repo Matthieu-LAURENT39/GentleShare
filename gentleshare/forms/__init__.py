@@ -3,3 +3,4 @@ from .register import RegisterForm
 from .profile import ProfileForm
 from .course import AddCourseForm
 from .file import AddFileForm
+from .comment import AddCommentForm
