@@ -7,6 +7,7 @@ from __future__ import annotations
 from sqlalchemy import Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 from sqlalchemy_file import FileField
+from wtforms import ValidationError
 
 from . import db
 from ..classes import EducationLevel, Subject
@@ -41,6 +42,10 @@ class Review(db.Model):
 
     @validates("rating")
     def validate_rating(self, key, value: int):
-        if not (0 <= value <= 10):
+        try:
+            rating = int(value)
+        except ValueError:
+            raise ValidationError("Rating must be an integer.")
+        if not (0 <= rating <= 10):
             raise ValueError("Rating must be between 0 and 10, inclusive.")
         return value

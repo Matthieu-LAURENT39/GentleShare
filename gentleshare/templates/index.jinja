@@ -33,18 +33,20 @@
 
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ course.description | escape | markdown }}</p>
     </div>
-    <a href="tel:{{ course.owner.phone_number }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:text-blue-500" id="telephone-link"
-        id="telephone">
+    <a href="tel:{{ course.owner.phone_number }}" class="telephone-link inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:text-blue-500">
         <svg class="svgTelephone h-6 w-6 text-blue-500 " width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" />
             <path
                 d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
         </svg>
-        <p class="ml-3 hidden" id="telephone-text">{{ course.owner.phone_number }}</p>
+        <p class="telephone-text ml-3 hidden">{{ course.owner.phone_number }}</p>
     </a>
     <p class="mt-3 text-gray-500 italic">Ajouté le {{course.created_at.strftime('%d/%m/%Y %H:%M:%S')}} Par
                 {{course.owner.username}}</p>
+    <a href="#" class="comment-link" data-course-id="{{ course.id }}">
+        <button class="comment-button">Laisser un commentaire</button>
+    </a>
 </div>
 {% endfor %}
 {% else %}
@@ -94,12 +96,37 @@
 <script>
     const svgTelephones = document.querySelectorAll('.svgTelephone');
     const numero = document.getElementById('numero');
-    const telephoneLink = document.getElementById('telephone-link');
-    const telephoneText = document.getElementById('telephone-text');
+    const telephoneLink = document.querySelectorAll('telephone-link');
+    const telephoneText = document.querySelectorAll('telephone-text');
 
     const svgTelephonesArray = Array.from(svgTelephones);
 
     let isUnlocked = false;
+
+    //review
+    document.addEventListener('DOMContentLoaded', function() {
+    const commentButtons = document.querySelectorAll('.comment-button');
+
+    commentButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const courseId = button.parentElement.getAttribute('data-course-id');
+            openPopup(courseId);
+        });
+    });
+
+    function openPopup(courseId) {
+        const popupWidth = 600;
+        const popupHeight = 400;
+        const leftPosition = (window.screen.width - popupWidth) / 2;
+        const topPosition = (window.screen.height - popupHeight) / 2;
+        const popupOptions = `width=${popupWidth},height=${popupHeight},left=${leftPosition},top=${topPosition},resizable=yes,scrollbars=yes`;
+
+        window.open('/add_comment?course_id=' + courseId, 'popupWindow', popupOptions);
+        }
+    });
+    //end review
+
 
     svgTelephonesArray.forEach(svgTelephone => {
         svgTelephone.addEventListener('mouseenter', vibrate);
