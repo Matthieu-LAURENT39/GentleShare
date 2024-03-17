@@ -124,8 +124,8 @@
         });
 
         function openPopup(courseId) {
-            const popupWidth = 600;
-            const popupHeight = 400;
+            const popupWidth = window.screen.width * 0.5;
+            const popupHeight = window.screen.height * 0.7;
             const leftPosition = (window.screen.width - popupWidth) / 2;
             const topPosition = (window.screen.height - popupHeight) / 2;
             const popupOptions = `width=${popupWidth},height=${popupHeight},left=${leftPosition},top=${topPosition},resizable=yes,scrollbars=yes`;
