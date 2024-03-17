@@ -42,10 +42,6 @@ class Review(db.Model):
 
     @validates("rating")
     def validate_rating(self, key, value: int):
-        try:
-            rating = int(value)
-        except ValueError:
-            raise ValidationError("Rating must be an integer.")
-        if not (0 <= rating <= 10):
+        if not (0 <= value <= 10):
             raise ValueError("Rating must be between 0 and 10, inclusive.")
         return value
