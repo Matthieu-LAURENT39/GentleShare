@@ -270,7 +270,7 @@
         </td>
         <td class="px-6 py-4 text-center hover:text-blue-500">
             <a href="{{ url_for('main.profile', username=file.uploader.username) }}">
-            {{ file.uploader.username | escape }}</a>
+                {{ file.uploader.username | escape }}</a>
         </td>
         <td class="px-6 py-4 text-center">
             <a href="{{ file.file_url }}"
@@ -389,13 +389,17 @@
         </td>
         <td class="px-6 py-4 text-center hover:text-blue-500">
             <a href="{{ url_for('main.profile', username=course.owner.username) }}">
-            {{ course.owner.username | escape }}</a>
+                {{ course.owner.username | escape }}</a>
         </td>
         <td class="px-6 py-4">
+            {% if course.owner.email %}
             <a class="hover:text-blue-500" href="mailto:{{ course.owner.email | escape }}">{{ course.owner.email
                 | escape }}</a><br>
+            {% endif %}
+            {% if course.owner.phone_number %}
             <a class="hover:text-blue-500" href="tel:{{ course.owner.phone_number | escape }}">{{
                 course.owner.phone_number | escape }}</a><br>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}
