@@ -3,8 +3,8 @@ from wtforms import SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
 
-class AddCommentForm(FlaskForm):
-    review = TextAreaField(
+class AddReviewForm(FlaskForm):
+    comment = TextAreaField(
         "Laisser un commentaire",
         validators=[
             DataRequired(),
@@ -15,7 +15,9 @@ class AddCommentForm(FlaskForm):
             ),
         ],
     )
-    rating = SelectField("Note", choices=[(str(i), str(i)) for i in range(1, 11)])
+    rating = SelectField(
+        "Note", choices=[(str(i), str(i)) for i in range(1, 11)], coerce=int
+    )
 
     def validate_rating(self, field):
         try:
@@ -25,3 +27,5 @@ class AddCommentForm(FlaskForm):
 
         if not (1 <= rating <= 10):
             raise ValueError("La note doit être entre 1 et 10, inclusivement.")
+
+        return rating

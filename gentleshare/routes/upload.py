@@ -6,7 +6,7 @@ from loguru import logger
 
 from ..classes import EducationLevel, Subject, FlashCategory
 from ..database import Course, File, Review, db
-from ..forms import AddCourseForm, AddFileForm, AddCommentForm
+from ..forms import AddCourseForm, AddFileForm, AddReviewForm
 from . import main
 
 
@@ -67,31 +67,32 @@ def create_course() -> str:
 
     return render_template("create_course.jinja", form=form)
 
-@main.route("/add_comment", methods=["GET", "POST"])
+
+@main.route("/add_comment/<int:course_id>", methods=["GET", "POST"])
 @login_required
-def add_comment() -> str:
-    form = AddCommentForm()
+def add_comment(course_id: int) -> str:
+    form = AddReviewForm()
 
-    get_course_id = request.args.get('course_id')
-    course_element = Course.query.get(get_course_id)
-    print("printtttttttt", course_element)  # Ajoutez cette ligne pour afficher la valeur de get_course_id
-
+    course_element = Course.query.get(course_id)
+    if course_element is None:
+        flash("Ce cours n'existe pas", FlashCategory.ERROR)
+        return redirect(url_for("main.index"))
 
     if form.validate_on_submit():
         r = Review(
-            reviewer_id=current_user.id,
-            course_id=course_element.id,
+            reviewer=current_user,
+            course=course_element,
             rating=form.rating.data,
-            comment = form.review.data
+            comment=form.comment.data,
         )
 
         db.session.add(r)
         db.session.commit()
 
-        logger.info(f"User {current_user.username} added a review to course '{r.course}' ({r.course_id})")
+        logger.info(
+            f"User {current_user.username} added a review to course '{r.course}' ({r.course_id})"
+        )
         flash("Commentaire ajouté!", FlashCategory.SUCCESS)
         return redirect(url_for("main.index"))
-        
-    print("test**********:", course_element)  # Ajoutez cette ligne pour afficher la valeur de get_course_id
 
     return render_template("comment_page.jinja", form=form, course=course_element)
