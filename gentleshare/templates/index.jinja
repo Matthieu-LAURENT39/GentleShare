@@ -31,35 +31,30 @@
             </p>
         </div>
         <a href="tel:{{ course.owner.phone_number }}"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:text-blue-500"
-            id="telephone">
-            <svg class="h-6 w-6 text-blue-500 animate-vibrate" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                id="svgTelephone">
+            class="telephone-link inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:text-blue-500">
+            <svg class="svgTelephone h-6 w-6 text-blue-500 " width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" />
                 <path
                     d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
             </svg>
-            <p class="ml-3">{{ course.owner.phone_number }}</p>
+            <p class="telephone-text ml-3 hidden">{{ course.owner.phone_number }}</p>
         </a>
         <p class="mt-3 text-gray-500 italic">Ajouté le {{course.created_at.strftime('%d/%m/%Y %H:%M:%S')}} Par
             {{course.owner.username}}</p>
+        <a href="#" class="comment-link" data-course-id="{{ course.id }}">
+            <button class="comment-button">Laisser un commentaire</button>
+        </a>
     </div>
-    <a href="tel:{{ course.owner.phone_number }}" class="telephone-link inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:text-blue-500">
-        <svg class="svgTelephone h-6 w-6 text-blue-500 " width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" />
-            <path
-                d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
-        </svg>
-        <p class="telephone-text ml-3 hidden">{{ course.owner.phone_number }}</p>
+    {% endfor %}
+    {% else %}
+    <a href="/create_course">
+        <p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p>
     </a>
-    <p class="mt-3 text-gray-500 italic">Ajouté le {{course.created_at.strftime('%d/%m/%Y %H:%M:%S')}} Par
-                {{course.owner.username}}</p>
-    <a href="#" class="comment-link" data-course-id="{{ course.id }}">
-        <button class="comment-button">Laisser un commentaire</button>
-    </a>
+    {% endif %}
 </div>
+
+
 
 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Les fichiers du moment :</h5>
 
@@ -93,7 +88,9 @@
     </div>
     {% endfor %}
     {% else %}
-    <p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p>
+    <a href="/upload">
+        <p class="mt-4 text-gray-500 italic">Rien pour l'instant.</p>
+    </a>
     {% endif %}
 </div>
 
@@ -115,25 +112,25 @@
     };
 
     //review
-    document.addEventListener('DOMContentLoaded', function() {
-    const commentButtons = document.querySelectorAll('.comment-button');
+    document.addEventListener('DOMContentLoaded', function () {
+        const commentButtons = document.querySelectorAll('.comment-button');
 
-    commentButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            const courseId = button.parentElement.getAttribute('data-course-id');
-            openPopup(courseId);
+        commentButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const courseId = button.parentElement.getAttribute('data-course-id');
+                openPopup(courseId);
+            });
         });
-    });
 
-    function openPopup(courseId) {
-        const popupWidth = 600;
-        const popupHeight = 400;
-        const leftPosition = (window.screen.width - popupWidth) / 2;
-        const topPosition = (window.screen.height - popupHeight) / 2;
-        const popupOptions = `width=${popupWidth},height=${popupHeight},left=${leftPosition},top=${topPosition},resizable=yes,scrollbars=yes`;
+        function openPopup(courseId) {
+            const popupWidth = 600;
+            const popupHeight = 400;
+            const leftPosition = (window.screen.width - popupWidth) / 2;
+            const topPosition = (window.screen.height - popupHeight) / 2;
+            const popupOptions = `width=${popupWidth},height=${popupHeight},left=${leftPosition},top=${topPosition},resizable=yes,scrollbars=yes`;
 
-        window.open('/add_comment?course_id=' + courseId, 'popupWindow', popupOptions);
+            window.open('/add_comment/' + courseId, 'popupWindow', popupOptions);
         }
     });
     //end review
@@ -144,7 +141,55 @@
         svgTelephone.addEventListener('mouseleave', stopVibrate);
     });
 
-    svgTelephone.classList.remove('animate-vibrate');
+    function vibrate() {
+        this.classList.add('animate-vibrate');
+        this.nextElementSibling.classList.remove('hidden');
+    }
+
+    function stopVibrate() {
+        this.classList.remove('animate-vibrate');
+        this.nextElementSibling.classList.add('hidden');
+    }
+
+    function animateText(str) {
+        let index = 0;
+        const intervalId = setInterval(() => {
+            telephoneText.textContent += str[index++];
+            if (index === str.length) {
+                clearInterval(intervalId);
+            }
+        }, 100);
+    }
+
+    telephoneLink.addEventListener('mouseleave', () => {
+        isUnlocked = true;
+    });
+
+    const formattedPhoneNumber = telephoneText.textContent.split('').map((char, index) => {
+        if (index % 2 !== 0 && index !== telephoneText.textContent.length - 1) {
+            return char + '.';
+        } else {
+            return char;
+        }
+    }).join('');
+
+    telephoneText.textContent = formattedPhoneNumber;
+
+    telephoneLink.addEventListener('mouseleave', () => {
+        telephoneText.classList.remove('hidden');
+    });
+
+    telephoneLink.addEventListener('mouseenter', () => {
+        if (!isUnlocked) {
+            telephoneText.classList.remove('hidden');
+
+            const textToAnimate = telephoneText.textContent;
+
+            telephoneText.textContent = '';
+
+            animateText(textToAnimate);
+        }
+    });
 
     const search_bar = document.getElementById('search-bar');
     const searchables = document.querySelectorAll('[data-title]');
