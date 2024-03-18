@@ -6,11 +6,8 @@ from __future__ import annotations
 
 from sqlalchemy import Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
-from sqlalchemy_file import FileField
-from wtforms import ValidationError
 
 from . import db
-from ..classes import EducationLevel, Subject
 
 
 class Review(db.Model):
