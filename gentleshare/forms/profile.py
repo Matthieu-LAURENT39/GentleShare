@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, EmailField
+from wtforms import StringField, TextAreaField, EmailField, BooleanField
 from wtforms.validators import DataRequired, Length
+from wtforms.validators import Optional
 
 
 class ProfileForm(FlaskForm):
@@ -33,4 +34,8 @@ class ProfileForm(FlaskForm):
                 message="La description doit faire moins de %(max)d caractères",
             )
         ],
+    )
+    totp_enabled = BooleanField(
+    "Activation de totp",
+    validators=[Optional()]
     )
