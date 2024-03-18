@@ -375,8 +375,8 @@
     {% if course_list %}
     {% for course in course_list %}
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-            {{ course.title | escape }}
+        <th scope="row" class="px-6 py-4 font-medium text-blue-600 dark:text-white">
+            <a href="{{url_for('main.course', course_id=course.id)}}">{{ course.title | escape }}</a>
         </th>
         <td class="px-6 py-4">
             {{ course.education_level.display_name | escape }}
