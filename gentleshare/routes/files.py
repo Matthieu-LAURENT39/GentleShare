@@ -17,13 +17,6 @@ def list_files() -> str:
     return render_template("my_file.jinja", file_list=file_list)
 
 
-@main.route("/courses", methods=["GET", "POST"])
-def list_courses() -> str:
-    course_list: list[Course] = Course.query.order_by(Course.id.desc()).all()
-
-    return render_template("my_courses.jinja", course_list=course_list)
-
-
 @main.route("/addtofav", methods=["GET", "POST"])
 @login_required  # Assurez-vous que l'utilisateur est connecté
 def addtofav() -> str:
@@ -57,6 +50,7 @@ def addtofav() -> str:
     return redirect(
         url_for("main.list_files")
     )  # Redirigez vers la liste de fichiers après l'ajout aux favoris
+
 
 @main.route("/rmfromfav", methods=["GET", "POST"])
 @login_required  # Assurez-vous que l'utilisateur est connecté
