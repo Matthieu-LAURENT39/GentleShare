@@ -1,6 +1,6 @@
 {% extends 'base.jinja' %}
 {% from '_macro.jinja' import form_field, file_form_field with context %}
-{% from '_tables.jinja' import file_table, course_table with context %}
+{% from '_tables.jinja' import file_table, course_table, review_table with context %}
 
 {% block title %}
 {{ super() }} - Profil de {{user.username}}
@@ -84,13 +84,22 @@
                     class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
                     data-tab-target="#fav-files">Fichiers favoris</button>
             </li>
+            <li class="mr-2">
+                <button
+                    class="tab-button inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300"
+                    data-tab-target="#reviews">Commentaires</button>
+            </li>
         </ul>
     </div>
 
     <div id="tabs-content">
         <div id="about_me" class="tab-content active pt-4">
             <div class="shadow-md sm:rounded-lg text-wrap break-words p-7">
+                {% if user.about_me %}
                 {{ user.about_me | escape | markdown }}
+                {% else %}
+                <p class="text-gray-600 italic">Rien pour l'instant.</p>
+                {% endif %}
             </div>
         </div>
 
@@ -106,6 +115,10 @@
 
         <div id="fav-files" class="tab-content hidden pt-4">
             {{ file_table(user.favorited_files, "file-list-favorited") }}
+        </div>
+
+        <div id="reviews" class="tab-content hidden pt-4">
+            {{ review_table(user.reviews, "review-table", True) }}
         </div>
     </div>
 </div>
