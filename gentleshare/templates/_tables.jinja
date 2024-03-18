@@ -369,6 +369,9 @@
         <th scope="col" class="px-6 py-3">
             Contact
         </th>
+        <th scope="col" class="px-6 py-3">
+            Commentaires
+        </th>
     </tr>
 </thead>
 <tbody>
@@ -400,6 +403,10 @@
             <a class="hover:text-blue-500" href="tel:{{ course.owner.phone_number | escape }}">{{
                 course.owner.phone_number | escape }}</a><br>
             {% endif %}
+        </td>
+        <td class="px-6 py-4 text-center text-blue-500">
+            <a href="{{ url_for('main.add_comment', course_id=course.id) }}">
+                Ajouter un commentaire</a>
         </td>
     </tr>
     {% endfor %}
