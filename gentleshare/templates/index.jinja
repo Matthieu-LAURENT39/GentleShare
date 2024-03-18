@@ -104,11 +104,6 @@
         numero.classList.remove('hidden');
     };
 
-    const stopVibrate = () => {
-        svgTelephone.classList.remove('animate-vibrate');
-        numero.classList.add('hidden');
-    };
-
     svgTelephonesArray.forEach(svgTelephone => {
         svgTelephone.addEventListener('mouseenter', vibrate);
         svgTelephone.addEventListener('mouseleave', stopVibrate);
@@ -121,7 +116,6 @@
 
     function stopVibrate() {
         this.classList.remove('animate-vibrate');
-        this.nextElementSibling.classList.add('hidden');
     }
 
     function animateText(str) {
