@@ -98,63 +98,6 @@
 
 
 <script>
-    document.querySelectorAll('.comment-link').forEach(link => {
-    setInterval(() => {
-        if (link.classList.contains('bg-blue-500')) {
-            link.classList.remove('bg-blue-500');
-            link.classList.add('bg-green-500');
-            link.classList.remove('hover:bg-blue-700');
-            link.classList.add('hover:bg-green-700');
-        } else if (link.classList.contains('bg-green-500')) {
-            link.classList.remove('bg-green-500');
-            link.classList.add('bg-red-500');
-            link.classList.remove('hover:bg-green-700');
-            link.classList.add('hover:bg-red-700');
-        } else if (link.classList.contains('bg-red-500')) {
-            link.classList.remove('bg-red-500');
-            link.classList.add('bg-yellow-500');
-            link.classList.remove('hover:bg-red-700');
-            link.classList.add('hover:bg-yellow-700');
-        } else if (link.classList.contains('bg-yellow-500')) {
-            link.classList.remove('bg-yellow-500');
-            link.classList.add('bg-pink-500');
-            link.classList.remove('hover:bg-yellow-700');
-            link.classList.add('hover:bg-pink-700');
-        } else if (link.classList.contains('bg-pink-500')) {
-            link.classList.remove('bg-pink-500');
-            link.classList.add('bg-purple-500');
-            link.classList.remove('hover:bg-pink-700');
-            link.classList.add('hover:bg-purple-700');
-        } else if (link.classList.contains('bg-purple-500')) {
-            link.classList.remove('bg-purple-500');
-            link.classList.add('bg-orange-500');
-            link.classList.remove('hover:bg-purple-700');
-            link.classList.add('hover:bg-orange-700');
-        } else if (link.classList.contains('bg-orange-500')) {
-            link.classList.remove('bg-orange-500');
-            link.classList.add('bg-cyan-500');
-            link.classList.remove('hover:bg-orange-700');
-            link.classList.add('hover:bg-cyan-700');
-        } else if (link.classList.contains('bg-cyan-500')) {
-            link.classList.remove('bg-cyan-500');
-            link.classList.add('bg-indigo-500');
-            link.classList.remove('hover:bg-cyan-700');
-            link.classList.add('hover:bg-indigo-700');
-        } else if (link.classList.contains('bg-indigo-500')) {
-            link.classList.remove('bg-indigo-500');
-            link.classList.add('bg-gray-500');
-            link.classList.remove('hover:bg-indigo-700');
-            link.classList.add('hover:bg-gray-700');
-        } else {
-            link.classList.remove('bg-gray-500');
-            link.classList.add('bg-blue-500');
-            link.classList.remove('hover:bg-gray-700');
-            link.classList.add('hover:bg-blue-700');
-        }
-    }, 50);
-});
-
-
     const svgTelephones = document.querySelectorAll('.svgTelephone');
     const numero = document.getElementById('numero');
     const telephoneLink = document.querySelectorAll('telephone-link');
