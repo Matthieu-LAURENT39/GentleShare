@@ -25,6 +25,9 @@
                     {{ form_field(form.about_me, form, rows='15') }}
                     {{ form_field(form.email, form) }}
                     {{ form_field(form.phone_number, form) }}
+                    <div class="form-check">
+                        {{ form_field(form.totp_enabled, form) }}
+                    </div>                    
                     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
                 </form>
             </div>
@@ -53,4 +56,9 @@
         totp_qr_code.classList.toggle("blurred");
     });
 </script>
+<style>
+.form-check {
+    margin-right: 700px; /* Pour ajuster l'espace entre la case à cocher et le texte */
+}
+</style>
 {% endblock content %}

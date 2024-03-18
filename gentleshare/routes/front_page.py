@@ -26,6 +26,7 @@ def settings():
         user.about_me = form.about_me.data
         user.email = form.email.data
         user.phone_number = form.phone_number.data
+        user.totp_enabled = form.totp_enabled.data is True
 
         db.session.add(user)
         db.session.commit()
