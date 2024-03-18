@@ -14,3 +14,4 @@ from . import static
 from . import errors
 from . import files
 from . import course
+from . import user
