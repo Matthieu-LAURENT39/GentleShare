@@ -13,3 +13,4 @@ from . import upload
 from . import static
 from . import errors
 from . import files
+from . import course
