@@ -6,7 +6,10 @@ _SECRET_KEY_FILE = "./secret_key.txt"
 
 
 class Config:
+    """The configuration for the flask app"""
+
     def __init__(self) -> None:
+        """Initialize the configuration. Called by the app factory."""
         try:
             with open(_SECRET_KEY_FILE, "r") as f:
                 self.SECRET_KEY = f.read().strip()
@@ -30,6 +33,8 @@ class Config:
 
 
 class TestConfig(Config):
+    """The configuration for the flask app when running tests"""
+
     def __init__(self) -> None: ...
 
     TESTING = True

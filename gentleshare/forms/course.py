@@ -6,6 +6,8 @@ from ..classes import EducationLevel, Subject
 
 
 class AddCourseForm(FlaskForm):
+    """Form to add a course"""
+
     title = StringField(
         "Titre",
         validators=[

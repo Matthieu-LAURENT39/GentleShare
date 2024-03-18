@@ -31,6 +31,7 @@ class File(db.Model):
         super().__init__(*args, **kwargs)
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    """The id of the file"""
 
     uploaded_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC))
     """The date and time the file was uploaded, in UTC"""
@@ -64,10 +65,12 @@ class File(db.Model):
 
     @property
     def stored_file(self):
+        """The actual file stored in the storage backend"""
         return StorageManager.get_file(self.file_info["path"])
 
     @property
     def file_url(self):
+        """The URL to the file"""
         return url_for(
             "main.serve_files",
             storage=self.file_info["upload_storage"],
