@@ -7,7 +7,7 @@ This is a project for our "Génie Logiciel" class.
 We had very little time to work on it, and only 2 people knew Python, so functionalities aren't that advanced.  
 
 ## Functionality
-The website allows users to upload files or share listing for courses.
+The is a web app that allows users to upload files or share listing for courses.
 
 ## Deployment
 1. Clone the repo
