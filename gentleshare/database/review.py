@@ -16,6 +16,7 @@ class Review(db.Model):
     __tablename__ = "reviews"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    """The id of the review"""
 
     reviewer_id = mapped_column(Integer, db.ForeignKey("users.id"), nullable=False)
     reviewer = relationship("User", back_populates="reviews")
@@ -39,6 +40,8 @@ class Review(db.Model):
 
     @validates("rating")
     def validate_rating(self, key, value: int):
+        """Validate the rating is between 0 and 10, inclusive."""
+
         if not (0 <= value <= 10):
             raise ValueError("Rating must be between 0 and 10, inclusive.")
         return value

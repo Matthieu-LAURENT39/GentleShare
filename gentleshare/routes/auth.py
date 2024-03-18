@@ -78,6 +78,7 @@ def register() -> str:
 
 @main.route("/logout")
 def logout() -> str:
+    """Logout route"""
     if current_user.is_authenticated:
         logout_user()
         flash("You have been logged out", FlashCategory.SUCCESS)
@@ -88,6 +89,7 @@ def logout() -> str:
 
 @main.route("/totp", methods=["GET", "POST"])
 def validate_totp() -> str:
+    """Route to validate TOTP, during the login process"""
     # This can't be forged, it's signed by the server
     username = session.get("awaiting_totp")
     if not username:

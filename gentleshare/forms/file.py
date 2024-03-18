@@ -9,6 +9,8 @@ from . import AddCourseForm
 
 # For now it's almost the exact same as AddCourseForm, so we just recycle it
 class AddFileForm(AddCourseForm):
+    """Form to upload a file."""
+
     file = FileField(
         "Fichier",
         validators=[

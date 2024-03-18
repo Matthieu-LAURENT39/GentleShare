@@ -32,14 +32,20 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    """The id of the user"""
     # collation="NOCASE" means the comparison is case-insensitive
     username: Mapped[str] = mapped_column(String(collation="NOCASE"), unique=True)
+    """The username of the user"""
 
     display_name: Mapped[Optional[str]]
+    """The display name of the user"""
     about_me: Mapped[Optional[str]]
+    """A short description of the user"""
     # We don't really care about the email or phone being unique
     email: Mapped[Optional[str]]
+    """The email of the user"""
     phone_number: Mapped[Optional[str]]
+    """The phone number of the user"""
 
     password_hash: Mapped[str]
     """
@@ -53,6 +59,7 @@ class User(db.Model, UserMixin):
     The secret for the TOTP (Time-based One-Time Password) algorithm
     """
     totp_enabled: Mapped[bool] = mapped_column(default=False)
+    """Whether the TOTP is enabled for the user"""
 
     uploaded_files: Mapped[list["File"]] = relationship(
         "File", back_populates="uploader"
@@ -93,6 +100,7 @@ class User(db.Model, UserMixin):
 
     @property
     def _totp(self) -> pyotp.TOTP:
+        """The pyotp.TOTP object for the user"""
         return pyotp.TOTP(
             self.totp_secret,
             digits=6,

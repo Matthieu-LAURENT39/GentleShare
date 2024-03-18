@@ -4,6 +4,8 @@ from wtforms.validators import DataRequired, EqualTo, Length
 
 
 class RegisterForm(FlaskForm):
+    """Form for registering a new user"""
+
     username = StringField(
         "Nom d'utilisateur",
         validators=[
@@ -15,6 +17,8 @@ class RegisterForm(FlaskForm):
             ),
         ],
     )
+    """The username of the user"""
+
     password = PasswordField(
         "Mot de passe",
         validators=[
@@ -25,7 +29,10 @@ class RegisterForm(FlaskForm):
             ),
         ],
     )
+    """The password of the user"""
+
     password_confirm = PasswordField(
         "Confirmation du mot de passe",
         validators=[DataRequired(), EqualTo("password", "Passwords must match")],
     )
+    """The password confirmation of the user"""

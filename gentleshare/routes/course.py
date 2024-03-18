@@ -7,6 +7,8 @@ from . import main
 
 @main.route("/courses", methods=["GET", "POST"])
 def list_courses() -> str:
+    """Route to list all the courses"""
+
     course_list: list[Course] = Course.query.order_by(Course.id.desc()).all()
 
     return render_template("my_courses.jinja", course_list=course_list)
@@ -14,6 +16,8 @@ def list_courses() -> str:
 
 @main.route("/courses/<int:course_id>")
 def course(course_id: int) -> str:
+    """Route to view details of a specific course"""
+
     course_element = Course.query.get(course_id)
     if course_element is None:
         flash("Ce cours n'existe pas", FlashCategory.ERROR)

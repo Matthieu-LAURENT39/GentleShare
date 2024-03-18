@@ -15,6 +15,7 @@ class Course(db.Model):
     __tablename__ = "courses"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    """The id of the course"""
 
     owner_id = mapped_column(Integer, db.ForeignKey("users.id"), nullable=False)
     owner = relationship("User", back_populates="owned_courses")

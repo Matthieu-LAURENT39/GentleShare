@@ -13,6 +13,7 @@ from . import main
 @main.route("/upload", methods=["GET", "POST"])
 @login_required
 def upload_file() -> str:
+    """Route to upload a file"""
     form = AddFileForm()
 
     if form.validate_on_submit():
@@ -47,6 +48,7 @@ def upload_file() -> str:
 @main.route("/create_course", methods=["GET", "POST"])
 @login_required
 def create_course() -> str:
+    """Route to creates a course"""
     form = AddCourseForm()
 
     if form.validate_on_submit():
@@ -71,6 +73,7 @@ def create_course() -> str:
 @main.route("/add_comment/<int:course_id>", methods=["GET", "POST"])
 @login_required
 def add_comment(course_id: int) -> str:
+    """Route to add a comment to a course"""
     form = AddReviewForm()
 
     course_element = Course.query.get(course_id)

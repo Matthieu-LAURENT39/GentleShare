@@ -10,4 +10,6 @@ class LoginForm(FlaskForm):
         "Nom d'utilisateur",
         validators=[DataRequired()],
     )
+    """The username of the user"""
     password = PasswordField("Mot de passe", validators=[DataRequired()])
+    """The password of the user"""

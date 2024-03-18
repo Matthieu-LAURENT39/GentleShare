@@ -12,6 +12,8 @@ from . import main
 
 @main.route("/files", methods=["GET", "POST"])
 def list_files() -> str:
+    """Route to list the files"""
+
     file_list: list[File] = File.query.order_by(File.uploaded_at.desc()).all()
 
     return render_template("my_file.jinja", file_list=file_list)
@@ -20,6 +22,8 @@ def list_files() -> str:
 @main.route("/addtofav", methods=["GET", "POST"])
 @login_required  # Assurez-vous que l'utilisateur est connecté
 def addtofav() -> str:
+    """Route pour ajouter un fichier aux favoris"""
+
     file_id = request.args.get(
         "file_id"
     )  # Obtenez l'ID du fichier à partir des paramètres de requête
@@ -55,6 +59,8 @@ def addtofav() -> str:
 @main.route("/rmfromfav", methods=["GET", "POST"])
 @login_required  # Assurez-vous que l'utilisateur est connecté
 def rmfromfav() -> str:
+    """Route pour supprimer un fichier des favoris"""
+
     file_id = request.args.get(
         "file_id"
     )  # Obtenez l'ID du fichier à partir des paramètres de requête

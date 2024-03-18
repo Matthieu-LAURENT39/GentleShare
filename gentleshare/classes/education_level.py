@@ -11,6 +11,7 @@ class EducationLevel(Enum):
 
     @property
     def display_name(self) -> str:
+        """The display name of the education level"""
         return {
             EducationLevel.ELEMENTARY: "École primaire",
             EducationLevel.MIDDLE: "Collège",

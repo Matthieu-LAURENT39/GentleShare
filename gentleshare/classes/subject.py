@@ -17,6 +17,7 @@ class Subject(Enum):
 
     @property
     def display_name(self) -> str:
+        """The display name of the subject"""
         return {
             Subject.MATHS: "Maths",
             Subject.FRENCH: "Français",

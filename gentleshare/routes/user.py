@@ -10,6 +10,7 @@ from . import main
 @main.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
+    """Route to manage the user settings"""
 
     form = ProfileForm(obj=current_user)
     user: User = current_user
@@ -30,6 +31,8 @@ def settings():
 
 @main.route("/profile/<username>")
 def profile(username: str):
+    """Route to view a user profile"""
+
     user: User = User.query.filter_by(username=username).first()
     if user is None:
         flash("Cet utilisateur n'existe pas", FlashCategory.ERROR)

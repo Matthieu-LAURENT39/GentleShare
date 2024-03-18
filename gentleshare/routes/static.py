@@ -13,6 +13,7 @@ from os.path import join
 # Code from https://github.com/jowilf/sqlalchemy-file/blob/main/examples/flask/app.py
 @main.route("/medias/<storage>/<file_id>")
 def serve_files(storage, file_id):
+    """Route to serve files from the storage"""
     logger.debug(f"Requested file {file_id} from storage {storage}")
     try:
         file = StorageManager.get_file(f"{storage}/{file_id}")
