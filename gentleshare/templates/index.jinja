@@ -105,8 +105,6 @@
 
     const svgTelephonesArray = Array.from(svgTelephones);
 
-    let isUnlocked = false;
-
     svgTelephonesArray.forEach(svgTelephone => {
         svgTelephone.addEventListener('mouseenter', vibrate);
         svgTelephone.addEventListener('mouseleave', stopVibrate);
@@ -119,7 +117,6 @@
 
     function stopVibrate() {
         this.classList.remove('animate-vibrate');
-        this.nextElementSibling.classList.add('hidden');
     }
 
     function animateText(str) {
